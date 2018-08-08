@@ -8,12 +8,12 @@ module Coconductor
       contributor-covenant
     ].freeze
 
-    KEY_REGEX = /
+    KEY_REGEX = %r{
       (?<family>#{Regexp.union(VENDORED_CODES_OF_CONDUCT)})
-      \/version
-      \/(?<major>\d)\/(?<minor>\d)(\/(?<patch>\d))?
-      \/#{Coconductor::ProjectFiles::CodeOfConductFile::FILENAME_REGEX}
-    /ix
+      /version
+      /(?<major>\d)/(?<minor>\d)(/(?<patch>\d))?
+      /#{Coconductor::ProjectFiles::CodeOfConductFile::FILENAME_REGEX}
+    }ix
 
     class << self
       def all
@@ -104,17 +104,20 @@ module Coconductor
 
     private
 
-    def path
+    def filename
       if contributor_covenant?
         filename = 'code-of-conduct'
       elsif citizen_code_of_conduct?
         filename = 'citizen_code_of_conduct'
       end
 
-      parts = key.split('/')
-      filename << '.' + parts.pop if language
+      filename << '.' + language if language
       filename << '.md'
+    end
 
+    def path
+      parts = key.split('/')
+      parts.pop if language
       path = File.join(*parts[0...5], filename)
       path = File.expand_path path, self.class.vendor_dir
       Pathname.new(path)

@@ -11,7 +11,8 @@ include_path = '*/content/version'
 FileUtils.rm_rf(dir)
 FileUtils.mkdir_p(dir)
 
-`curl -L "https://api.github.com/repos/#{repo}/tarball" | tar xf - --include=#{include_path} --strip-components=2 -C #{dir}`
+tar_args = "--include=#{include_path} --strip-components=2 -C #{dir}"
+`curl -L "https://api.github.com/repos/#{repo}/tarball" | tar xf - #{tar_args}`
 
 repo = 'stumpsyn/policies'
 dir = 'vendor/citizen-code-of-conduct'

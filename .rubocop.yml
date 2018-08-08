@@ -1,2 +1,14 @@
 Style/Documentation:
   Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+
+Metrics/LineLength:
+  Exclude:
+    - lib/coconductor/project_files.rb
+
+Metrics/ClassLength:
+  Exclude:
+    - lib/coconductor/code_of_conduct.rb
