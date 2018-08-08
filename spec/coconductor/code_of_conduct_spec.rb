@@ -28,6 +28,23 @@ RSpec.describe Coconductor::CodeOfConduct do
     it 'returns keys' do
       expect(described_class.keys.count).to eql(code_of_conduct_count)
     end
+
+    it 'returns the vendor dir' do
+      expected = File.expand_path '../../vendor', __dir__
+      expect(described_class.vendor_dir.to_path).to eql(expected)
+    end
+  end
+
+  it 'knows a contributor covenant license' do
+    coc = described_class.find('contributor-covenant/version/1/4')
+    expect(coc).to be_contributor_covenant
+    expect(coc).to_not be_citizen_code_of_conduct
+  end
+
+  it 'knows a contributor covenant license' do
+    coc = described_class.find('citizen-code-of-conduct/version/2/3')
+    expect(coc).to be_citizen_code_of_conduct
+    expect(coc).to_not be_contributor_covenant
   end
 
   Coconductor::CodeOfConduct.all.each do |coc|
@@ -60,6 +77,11 @@ RSpec.describe Coconductor::CodeOfConduct do
 
       it 'returns the normalized content' do
         expect(subject.content_normalized).to be_a(String)
+      end
+
+      it 'returns the family' do
+        families = described_class::VENDORED_CODES_OF_CONDUCT
+        expect(families).to include(subject.family)
       end
     end
   end
