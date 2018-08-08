@@ -1,23 +1,9 @@
 module Coconductor
   module Projects
     class FSProject < Licensee::Projects::FSProject
-
       include Coconductor::Projects::Project
 
       private
-
-      # Returns an array of hashes representing the project's files.
-      # Hashes will have the the following keys:
-      #  :name - the relative file name
-      #  :dir  - the directory path containing the file
-      def files
-        @files ||= search_directories.flat_map do |dir|
-          Dir.glob(::File.join(dir, @pattern).tr('\\', '/')).map do |file|
-            next unless ::File.file?(file)
-            { name: ::File.basename(file), dir: dir }
-          end.compact
-        end
-      end
 
       # Returns the set of unique paths to search for project files
       # in order from @dir -> @root

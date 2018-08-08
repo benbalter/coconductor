@@ -4,23 +4,23 @@ require 'fileutils'
 require 'open-uri'
 require 'toml'
 
-repo = "ContributorCovenant/contributor_covenant"
-dir = File.expand_path "vendor/contributor-covenant"
-include_path = "*/content/version"
+repo = 'ContributorCovenant/contributor_covenant'
+dir = File.expand_path 'vendor/contributor-covenant'
+include_path = '*/content/version'
 
 FileUtils.rm_rf(dir)
 FileUtils.mkdir_p(dir)
 
 `curl -L "https://api.github.com/repos/#{repo}/tarball" | tar xf - --include=#{include_path} --strip-components=2 -C #{dir}`
 
-repo="stumpsyn/policies"
-dir="vendor/citizen-code-of-conduct"
-file="citizen_code_of_conduct.md"
+repo = 'stumpsyn/policies'
+dir = 'vendor/citizen-code-of-conduct'
+file = 'citizen_code_of_conduct.md'
 versions = {
-  "2.0" => "d0594789ea324a42e26b495034952b6ce08d9f51",
-  "2.1" => "b7705a4315a5e58fea58ae3d4b1de82bd564ac86",
-  "2.2" => "93b7b06f52c9dd526d2395bfa9f5f1723deae32a",
-  "2.3" => "b1eb8deb5da073c2bd02a8e742e017edfc422554",
+  '2.0' => 'd0594789ea324a42e26b495034952b6ce08d9f51',
+  '2.1' => 'b7705a4315a5e58fea58ae3d4b1de82bd564ac86',
+  '2.2' => '93b7b06f52c9dd526d2395bfa9f5f1723deae32a',
+  '2.3' => 'b1eb8deb5da073c2bd02a8e742e017edfc422554'
 }
 
 FileUtils.rm_rf(dir)
@@ -29,10 +29,10 @@ FileUtils.mkdir_p(dir)
 versions.each do |version, sha|
   url = "https://github.com/#{repo}/raw/#{sha}/#{file}"
   content = URI.open(url).read
-  meta = { "version" => version }
+  meta = { 'version' => version }
   toml = TOML::Generator.new(meta).body
-  content = ["+++", toml, "+++", content].join("\n")
-  path = File.join(dir, "version", *version.split("."), file)
+  content = ['+++', toml, '+++', content].join("\n")
+  path = File.join(dir, 'version', *version.split('.'), file)
   FileUtils.mkdir_p File.dirname(path)
   File.write(path, content)
 end
