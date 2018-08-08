@@ -5,7 +5,7 @@ module Coconductor
       DIRS = ['./docs/', './.github/']
 
       def code_of_conduct
-
+        code_of_conduct_file.code_of_conduct if code_of_conduct_file
       end
 
       private

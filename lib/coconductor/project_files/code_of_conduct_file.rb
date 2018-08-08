@@ -1,6 +1,6 @@
 module Coconductor
   module ProjectFiles
-    class CodeOfConductFile < Licensee::ProjectFiles::ProjectFile
+    class CodeOfConductFile < Coconductor::ProjectFiles::ProjectFile
       include Licensee::ContentHelper
 
       PREFERRED_EXT = %w[md markdown txt].freeze
