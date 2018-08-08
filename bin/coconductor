@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+
+require 'coconductor'
+
+path = ARGV.first || Dir.pwd
+project = Coconductor::Projects::FSProject.new(path)
+coc = project.code_of_conduct
+file = project.send(:code_of_conduct_file)
+
+if coc.nil? || file.nil?
+  puts 'Code of Conduct not found'
+  exit
+end
+
+%w[key family version language].each do |key|
+  value = coc.public_send(key)
+  puts "#{key.capitalize}: #{value}" if value
+end
+
+%i[filename confidence matcher].each do |key|
+  value = file.public_send(key)
+  value = value.class if key == :matcher
+  puts "#{key.capitalize}: #{value}" if value
+end
