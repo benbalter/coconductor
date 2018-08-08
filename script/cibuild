@@ -1,0 +1,9 @@
+#!/bin/sh
+
+set -e
+
+bundle exec rspec
+
+bundle exec rubocop
+
+gem build coconductor.gemspec

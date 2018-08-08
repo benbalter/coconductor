@@ -8,6 +8,13 @@ module Coconductor
       contributor-covenant
     ].freeze
 
+    KEY_REGEX = /
+      (?<family>#{Regexp.union(VENDORED_CODES_OF_CONDUCT)})
+      \/version
+      \/(?<major>\d)\/(?<minor>\d)(\/(?<patch>\d))?
+      \/#{Coconductor::ProjectFiles::CodeOfConductFile::FILENAME_REGEX}
+    /ix
+
     class << self
       def all
         @all ||= keys.map { |key| new(key) }
@@ -20,18 +27,15 @@ module Coconductor
       alias find_by_key find
 
       def vendor_dir
-        @vendor_dir ||= File.expand_path '../../vendor', __dir__
+        @vendor_dir ||= Pathname.new File.expand_path '../../vendor', __dir__
       end
 
       def keys
         @keys ||= vendored_codes_of_conduct.map do |path|
-          if File.dirname(path).end_with? 'citizen-code-of-conduct'
-            'citizen-code-of-conduct'
-          else
-            path.gsub!(%r{#{Regexp.escape(vendor_dir)}/}, '')
-            path.gsub!('code-of-conduct.', '')
-            path.gsub(%r{/?\.?md$}, '')
-          end
+          path = Pathname.new(path)
+          key = path.relative_path_from(vendor_dir)
+          matches = KEY_REGEX.match(key.to_path)
+          matches.to_a.compact[1..-1].insert(1, 'version').join('/') if matches
         end
       end
 
@@ -86,12 +90,16 @@ module Coconductor
       "#<Licensee::CodeOfConduct key=#{key}>"
     end
 
+    def family
+      @family ||= key.split('/').first
+    end
+
     def contributor_covenant?
-      key.start_with? 'contributor-covenant'
+      family == 'contributor-covenant'
     end
 
     def citizen_code_of_conduct?
-      key.start_with? 'citizen-code-of-conduct'
+      family == 'citizen-code-of-conduct'
     end
 
     private
@@ -105,18 +113,18 @@ module Coconductor
 
       parts = key.split('/')
       filename << '.' + parts.pop if language
-      parts.pop if citizen_code_of_conduct?
-
       filename << '.md'
+
       path = File.join(*parts[0...5], filename)
-      File.expand_path path, self.class.vendor_dir
+      path = File.expand_path path, self.class.vendor_dir
+      Pathname.new(path)
     end
 
     # Raw content of code of conduct file, including TOML front matter
     def raw_content
       unless File.exist?(path)
         msg = "'#{key}' is not a valid code of conduct key"
-        raise Licensee::InvalidCodeOfConduct, msg
+        raise Coconductor::InvalidCodeOfConduct, msg
       end
       @raw_content ||= File.read(path, encoding: 'utf-8')
     end

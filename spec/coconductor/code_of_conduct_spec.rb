@@ -1,15 +1,15 @@
 RSpec.describe Coconductor::CodeOfConduct do
-  let(:code_of_conduct_count) { 44 }
+  let(:code_of_conduct_count) { 47 }
 
   context 'class methods' do
     it 'loads all codes of conduct' do
       expect(described_class.all.count).to eql(code_of_conduct_count)
-      expect(described_class.all.first).to be_a(described_class)
+      expect(described_class.all).to all(be_a(described_class))
     end
 
     context 'find' do
       %w[
-        citizen-code-of-conduct
+        citizen-code-of-conduct/version/2/3
         contributor-covenant/version/1/3/0
         contributor-covenant/version/1/3/0/de
         contributor-covenant/version/1/4
@@ -30,15 +30,15 @@ RSpec.describe Coconductor::CodeOfConduct do
     end
   end
 
-  Licensee::CodeOfConduct.all.each do |coc|
+  Coconductor::CodeOfConduct.all.each do |coc|
     context coc.name do
       subject { coc }
 
-      if coc.key.start_with? 'contributor-covenant'
-        it 'returns the version' do
-          expect(subject.version).to match(/\d\.\d/)
-        end
+      it 'returns the version' do
+        expect(subject.version).to match(/\d\.\d/)
+      end
 
+      if coc.key.start_with? 'contributor-covenant'
         it 'returns the language' do
           unless subject.key.split('/').last =~ /\d/
             expect(subject.language).to match(/[a-z-]{2,5}/)
