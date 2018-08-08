@@ -1,6 +1,5 @@
 module Coconductor
-  class matchers < Licensee::Matchers::Matcher
-
+  class Matchers < Licensee::Matchers::Matcher
     private
 
     def potential_matches
