@@ -10,32 +10,32 @@ RSpec.describe Coconductor::Matchers::Dice do
 
   subject { described_class.new(file) }
 
-  it "stores the file" do
+  it 'stores the file' do
     expect(subject.file).to eql(file)
   end
 
-  it "matches" do
+  it 'matches' do
     expect(subject.match).to eql(cc_1_4)
   end
 
-  it "is confident" do
+  it 'is confident' do
     expect(subject.confidence).to eql(100.0)
   end
 
-  context "with words added" do
-    let(:content) { cc_1_4.content + "foo" }
+  context 'with words added' do
+    let(:content) { cc_1_4.content + 'foo' }
 
-    it "matches" do
+    it 'matches' do
       expect(subject.match).to eql(cc_1_4)
     end
 
-    it "is confident" do
+    it 'is confident' do
       expect(subject.confidence).to eql(99.79296066252587)
     end
   end
 
-  context "random text" do
-    let(:content) { "a random string" }
+  context 'random text' do
+    let(:content) { 'a random string' }
 
     it "doesn't match" do
       expect(subject.match).to be_nil
