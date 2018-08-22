@@ -24,7 +24,7 @@ module Coconductor
 
       def files_from_tree(tree, dir = '.')
         tree.select { |e| e[:type] == :blob }.map do |entry|
-          { name: entry[:name], oid: entry[:oid], dir: dir }
+          entry.merge(dir: dir)
         end.compact
       end
 
