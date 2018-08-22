@@ -25,7 +25,7 @@ RSpec.describe Coconductor::ProjectFiles::CodeOfConductFile do
     end
 
     context 'vendored codes of context' do
-      Dir["#{project_root}/vendor/*/**/*.md"].each do |path|
+      Coconductor::CodeOfConduct.send(:vendored_codes_of_conduct).each do |path|
         context File.basename(path).to_s do
           let(:filename) { File.basename(path) }
 
