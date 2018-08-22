@@ -26,6 +26,12 @@
         it 'returns the code of conduct' do
           expect(subject.code_of_conduct).to eql(cc_1_4)
         end
+
+        it 'returns the code of conduct file' do
+          file = subject.code_of_conduct_file
+          expect(file).to be_a(Coconductor::ProjectFiles::CodeOfConductFile)
+          expect(file.filename).to eql("CODE_OF_CONDUCT.txt")
+        end
       end
     end
   end
