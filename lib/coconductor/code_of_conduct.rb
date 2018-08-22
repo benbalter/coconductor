@@ -14,6 +14,7 @@ module Coconductor
       /(?<major>\d)/(?<minor>\d)(/(?<patch>\d))?
       /#{Coconductor::ProjectFiles::CodeOfConductFile::FILENAME_REGEX}
     }ix
+    FIELD_REGEX = /\[(?<name>[A-Z_ ]{2,}).*\]/
 
     class << self
       def all
@@ -51,6 +52,7 @@ module Coconductor
     end
 
     attr_reader :key
+    attr_writer :content
     include Licensee::ContentHelper
 
     def initialize(key)
@@ -83,7 +85,7 @@ module Coconductor
     end
 
     def content
-      parts.last
+      @content ||= parts.last
     end
 
     def inspect
@@ -100,6 +102,10 @@ module Coconductor
 
     def citizen_code_of_conduct?
       family == 'citizen-code-of-conduct'
+    end
+
+    def fields
+      content.scan(FIELD_REGEX).flatten
     end
 
     private

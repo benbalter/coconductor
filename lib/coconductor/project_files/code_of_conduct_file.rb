@@ -15,7 +15,7 @@ module Coconductor
       end
 
       def possible_matchers
-        [Matchers::Exact, Matchers::Dice] # Matchers::CodeOfConduct]
+        [Matchers::Exact, Matchers::FieldAware, Matchers::Dice]
       end
     end
   end
