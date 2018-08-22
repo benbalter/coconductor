@@ -3,11 +3,12 @@ module Coconductor
     class CodeOfConductFile < Coconductor::ProjectFiles::ProjectFile
       include Licensee::ContentHelper
 
-      PREFERRED_EXT = %w[md markdown txt].freeze
-      PREFERRED_EXT_REGEX = /\.#{Regexp.union(PREFERRED_EXT)}/
+      EXTENSIONS = %w[md markdown txt].freeze
+      EXT_REGEX = /\.#{Regexp.union(EXTENSIONS)}/i
       BASENAME_REGEX = /(citizen[_-])?code[_-]of[_-]conduct/i
-      LANG_REGEX = /(\.(?<lang>[a-z]{2}(-[a-z]{2})?))?/i
-      FILENAME_REGEX = /#{BASENAME_REGEX}#{LANG_REGEX}#{PREFERRED_EXT_REGEX}/i
+      # LANG_REGEX must contain extension to avoid matching .md as the lang
+      LANG_REGEX = /(\.(?<lang>[a-z]{2}(-[a-z]{2})?)#{EXT_REGEX})?/i
+      FILENAME_REGEX = /#{BASENAME_REGEX}#{LANG_REGEX}#{EXT_REGEX}?/i
 
       def self.name_score(filename)
         filename =~ /\A#{FILENAME_REGEX}/ ? 1.0 : 0.0
