@@ -1,7 +1,7 @@
 RSpec.describe 'integration test' do
   [
     Coconductor::Projects::FSProject,
-    #  Coconductor::Projects::GitProject
+    Coconductor::Projects::GitProject
   ].each do |project_type|
     context "with a #{project_type} project" do
       let(:filename) { 'CODE_OF_CONDUCT.txt' }
@@ -15,6 +15,11 @@ RSpec.describe 'integration test' do
       subject { project_type.new(project_path, arguments) }
 
       context 'fixtures' do
+        if project_type == Coconductor::Projects::GitProject
+          before { git_init(project_path) }
+          after { FileUtils.rm_rf(git_path) }
+        end
+
         context 'contributor covenant 1.4' do
           let(:fixture) { 'contributor-covenant-1-4' }
 

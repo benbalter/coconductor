@@ -10,7 +10,7 @@ module Coconductor
       private
 
       def code_of_conduct_file
-        return [] if files.empty? || files.nil?
+        return if files.nil? || files.empty?
         content, name = find_file do |n|
           Coconductor::ProjectFiles::CodeOfConductFile.name_score(n)
         end

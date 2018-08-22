@@ -1,6 +1,6 @@
 [
   Coconductor::Projects::FSProject,
-  #  Coconductor::Projects::GitProject
+  Coconductor::Projects::GitProject
 ].each do |project_type|
   RSpec.describe project_type do
     context "a #{project_type} project" do
@@ -12,14 +12,7 @@
       subject { described_class.new(path) }
 
       if described_class == Coconductor::Projects::GitProject
-        before do
-          Dir.chdir path do
-            `git init`
-            `git config --local commit.gpgsign false`
-            `git add .`
-            `git commit -m 'initial commit'`
-          end
-        end
+        before { git_init(path) }
 
         after do
           subject.close

@@ -25,3 +25,15 @@ end
 def fixture_contents(fixture)
   File.read fixture_path(fixture)
 end
+
+# Init git dir
+# Note: we disable gpgsign and restore it to its original setting to avoid
+# Signing commits during tests and slowing down / breaking specs
+def git_init(path)
+  Dir.chdir path do
+    `git init`
+    `git config --local commit.gpgsign false`
+    `git add .`
+    `git commit -m 'initial commit'`
+  end
+end
