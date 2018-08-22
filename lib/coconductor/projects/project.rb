@@ -9,12 +9,26 @@ module Coconductor
 
       def code_of_conduct_file
         return if files.nil? || files.empty?
-        content, name = find_file do |n|
-          Coconductor::ProjectFiles::CodeOfConductFile.name_score(n)
-        end
+        file = find_files do |filename|
+          ProjectFiles::CodeOfConductFile.name_score(filename)
+        end.first
 
-        return unless content && name
-        Coconductor::ProjectFiles::CodeOfConductFile.new(content, name)
+        return unless file
+
+        content = load_file(file)
+        file[:dir] = path_relative_to_root(file[:dir])
+
+        ProjectFiles::CodeOfConductFile.new(content, file)
+      end
+
+      private
+
+      def path_relative_to_root(path)
+        return path if is_a?(GitProject) || path.nil?
+
+        root = Pathname.new(@dir)
+        path = Pathname.new(path)
+        path.relative_path_from(root).to_s
       end
     end
   end

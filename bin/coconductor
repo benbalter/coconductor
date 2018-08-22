@@ -17,7 +17,7 @@ end
   puts "#{key.capitalize}: #{value}" if value
 end
 
-%i[filename confidence matcher].each do |key|
+%i[path confidence matcher].each do |key|
   value = file.public_send(key)
   value = value.class if key == :matcher
   puts "#{key.capitalize}: #{value}" if value

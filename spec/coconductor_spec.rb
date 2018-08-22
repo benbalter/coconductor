@@ -9,8 +9,9 @@ RSpec.describe Coconductor do
   end
 
   it 'returns all codes of conduct' do
-    expect(described_class.codes_of_conduct.count).to eql(47)
-    expect(described_class.codes_of_conduct).to all(be_a(Coconductor::CodeOfConduct))
+    cocs = described_class.codes_of_conduct
+    expect(cocs.count).to eql(47)
+    expect(cocs).to all(be_a(Coconductor::CodeOfConduct))
   end
 
   it 'returns the code of conduct for a given path' do

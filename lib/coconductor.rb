@@ -1,5 +1,6 @@
 require 'coconductor/version'
 require 'licensee'
+require 'pathname'
 
 module Coconductor
   autoload :CodeOfConduct, 'coconductor/code_of_conduct'

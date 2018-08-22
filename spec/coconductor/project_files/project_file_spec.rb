@@ -5,8 +5,9 @@ RSpec.describe Coconductor::ProjectFiles::ProjectFile do
   end
   let(:content) { cc_1_4.content }
   let(:possible_matchers) { [Coconductor::Matchers::Exact] }
+  let(:metadata) { { name: filename } }
 
-  subject { described_class.new(content, filename) }
+  subject { described_class.new(content, metadata) }
 
   before do
     allow(subject).to receive(:possible_matchers).and_return(possible_matchers)
@@ -33,5 +34,25 @@ RSpec.describe Coconductor::ProjectFiles::ProjectFile do
 
   it 'returns the code of conduct' do
     expect(subject.code_of_conduct).to eql(cc_1_4)
+  end
+
+  it 'returns the path' do
+    expect(subject.path).to eql('./CODE_OF_CONDUCT.txt')
+  end
+
+  it 'returns the directory' do
+    expect(subject.directory).to eql '.'
+  end
+
+  context 'a subdir' do
+    let(:metadata) { { name: filename, dir: '.github' } }
+
+    it 'returns the path' do
+      expect(subject.path).to eql('.github/CODE_OF_CONDUCT.txt')
+    end
+
+    it 'returns the directory' do
+      expect(subject.directory).to eql '.github'
+    end
   end
 end

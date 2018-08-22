@@ -30,7 +30,38 @@
         it 'returns the code of conduct file' do
           file = subject.code_of_conduct_file
           expect(file).to be_a(Coconductor::ProjectFiles::CodeOfConductFile)
-          expect(file.filename).to eql("CODE_OF_CONDUCT.txt")
+          expect(file.filename).to eql('CODE_OF_CONDUCT.txt')
+          expect(file.directory).to eql('.')
+        end
+      end
+
+      context 'docs folder' do
+        let(:fixture) { 'docs-folder' }
+
+        it 'returns the code of conduct' do
+          expect(subject.code_of_conduct).to eql(cc_1_4)
+        end
+
+        it 'returns the code of conduct file' do
+          file = subject.code_of_conduct_file
+          expect(file).to be_a(Coconductor::ProjectFiles::CodeOfConductFile)
+          expect(file.filename).to eql('CODE_OF_CONDUCT.txt')
+          expect(file.directory).to eql('docs')
+        end
+      end
+
+      context '.github folder' do
+        let(:fixture) { 'dot-github-folder' }
+
+        it 'returns the code of conduct' do
+          expect(subject.code_of_conduct).to eql(cc_1_4)
+        end
+
+        it 'returns the code of conduct file' do
+          file = subject.code_of_conduct_file
+          expect(file).to be_a(Coconductor::ProjectFiles::CodeOfConductFile)
+          expect(file.filename).to eql('CODE_OF_CONDUCT.txt')
+          expect(file.directory).to eql('.github')
         end
       end
     end

@@ -13,18 +13,18 @@ module Coconductor
         return @files if defined? @files
         @files = files_from_tree(commit.tree)
 
-        commit.tree.each_tree do |tree|
-          next unless subdir?(tree)
-          tree = Rugged::Tree.lookup(@repository, tree[:oid])
-          @files.concat files_from_tree(tree) if tree
+        commit.tree.each_tree do |tree_hash|
+          next unless subdir?(tree_hash)
+          tree = Rugged::Tree.lookup(@repository, tree_hash[:oid])
+          @files.concat files_from_tree(tree, tree_hash[:name]) if tree
         end
 
         @files
       end
 
-      def files_from_tree(tree)
+      def files_from_tree(tree, dir = '.')
         tree.select { |e| e[:type] == :blob }.map do |entry|
-          { name: entry[:name], oid: entry[:oid] }
+          { name: entry[:name], oid: entry[:oid], dir: dir }
         end.compact
       end
 
