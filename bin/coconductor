@@ -8,17 +8,16 @@ coc = project.code_of_conduct
 file = project.code_of_conduct_file
 
 if coc.nil? || file.nil?
-  puts 'Code of Conduct not found'
-  exit
+  puts 'Code of Conduct not detected'
 end
 
 %w[key family version language].each do |key|
   value = coc.public_send(key)
   puts "#{key.capitalize}: #{value}" if value
-end
+end unless coc.nil?
 
 %i[path confidence matcher].each do |key|
   value = file.public_send(key)
   value = value.class if key == :matcher
   puts "#{key.capitalize}: #{value}" if value
-end
+end unless file.nil?
