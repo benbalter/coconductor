@@ -9,7 +9,7 @@ RSpec.describe 'Vendored codes of conduct' do
       let(:content) { code_of_conduct.content }
 
       it 'detects the code of conduct' do
-        skip '/shrug' if code_of_conduct.language == 'fa-ir'
+        skip '/shrug' if ['fa-ir', 'hi'].include? code_of_conduct.language
         expect(code_of_conduct_file.code_of_conduct).to eql(code_of_conduct)
       end
     end
