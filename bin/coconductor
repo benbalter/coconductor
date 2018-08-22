@@ -3,9 +3,9 @@
 require 'coconductor'
 
 path = ARGV.first || Dir.pwd
-project = Coconductor::Projects::FSProject.new(path)
+project = Coconductor.project(path)
 coc = project.code_of_conduct
-file = project.send(:code_of_conduct_file)
+file = project.code_of_conduct_file
 
 if coc.nil? || file.nil?
   puts 'Code of Conduct not found'

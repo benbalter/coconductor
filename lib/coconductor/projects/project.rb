@@ -7,8 +7,6 @@ module Coconductor
         code_of_conduct_file.code_of_conduct if code_of_conduct_file
       end
 
-      private
-
       def code_of_conduct_file
         return if files.nil? || files.empty?
         content, name = find_file do |n|
