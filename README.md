@@ -1,5 +1,7 @@
 # Coconductor
 
+[![Build Status](https://travis-ci.org/benbalter/coconductor.svg?branch=master)](https://travis-ci.org/benbalter/coconductor)
+
 A Code of Conduct detector based off [Licensee](https://github.com/benbalter/licensee).
 
 ## Installation
