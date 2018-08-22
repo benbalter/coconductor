@@ -68,3 +68,9 @@ Content hash:     627827ddda36b5c42b3a00418d3d7d5b16e5088a
 
 * Contributor Covenant (all official languages and versions)
 * Citizen Code of Conduct (all versions)
+
+### Matching strategy
+
+* Exact match (after normalization)
+* Field aware exact match (e.g., ignoring fields intended to be filled in)
+* [Sørensen–Dice coefficient](https://en.wikipedia.org/wiki/S%C3%B8rensen%E2%80%93Dice_coefficient)
