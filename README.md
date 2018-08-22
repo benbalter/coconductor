@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/benbalter/coconductor.svg?branch=master)](https://travis-ci.org/benbalter/coconductor) [![Gem Version](https://badge.fury.io/rb/coconductor.svg)](http://badge.fury.io/rb/coconductor)
 
-A Code of Conduct detector based off [Licensee](https://github.com/benbalter/licensee).
+A (work-in-progress) Code of Conduct detector based off [Licensee](https://github.com/benbalter/licensee).
 
 ## Installation
 
