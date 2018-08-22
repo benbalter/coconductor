@@ -8,9 +8,10 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Ben Balter']
   spec.email         = ['ben.balter@github.com']
 
-  spec.summary       = ''
-  spec.description   = ''
-  spec.homepage      = ''
+  spec.summary       = <<-SUMMARY
+   work-in-progress code of conduct detector based off Licensee
+  SUMMARY
+  spec.homepage      = 'https://github.com/benbalter/coconductor'
   spec.license       = 'MIT'
 
   spec.files         = Dir.chdir(File.expand_path(__dir__)) do
@@ -26,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'toml', '~> 0.2'
 
   spec.add_development_dependency 'bundler', '~> 1.16'
-  spec.add_development_dependency 'pry'
+  spec.add_development_dependency 'pry', '~> 0.10'
   spec.add_development_dependency 'rspec', '~> 3.0'
-  spec.add_development_dependency 'rubocop'
+  spec.add_development_dependency 'rubocop', '~> 0.50'
 end
