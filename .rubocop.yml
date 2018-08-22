@@ -8,7 +8,25 @@ Metrics/BlockLength:
 Metrics/LineLength:
   Exclude:
     - lib/coconductor/project_files.rb
+    - lib/coconductor/commands/*
 
 Metrics/ClassLength:
   Exclude:
     - lib/coconductor/code_of_conduct.rb
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - lib/coconductor/commands/*
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - lib/coconductor/commands/*
+
+Metrics/AbcSize:
+  Exclude:
+    - lib/coconductor/commands/*
+
+Metrics/MethodLength:
+  Exclude:
+    - lib/coconductor/commands/*
+  

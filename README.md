@@ -1,6 +1,6 @@
 # Coconductor
 
-[![Build Status](https://travis-ci.org/benbalter/coconductor.svg?branch=master)](https://travis-ci.org/benbalter/coconductor) [![Gem Version](https://badge.fury.io/rb/coconductor.svg)](http://badge.fury.io/rb/coconductor) 
+[![Build Status](https://travis-ci.org/benbalter/coconductor.svg?branch=master)](https://travis-ci.org/benbalter/coconductor) [![Gem Version](https://badge.fury.io/rb/coconductor.svg)](http://badge.fury.io/rb/coconductor)
 
 A Code of Conduct detector based off [Licensee](https://github.com/benbalter/licensee).
 
@@ -44,17 +44,24 @@ project.code_of_conduct_file.confidence
 
 ### Command line
 
-`$ bin/coconductor PATH`
+```
+coconductor detect [PATH]   # Detect the code of conduct of the given project
+coconductor diff [PATH]     # Compare the given code of conduct text to a known code of conduct
+coconductor help [COMMAND]  # Describe available commands or one specific command
+coconductor version         # Return the Coconductor version
+```
 
 #### Example output
 
 ```
-Key: contributor-covenant/version/1/4
-Family: contributor-covenant
-Version: 1.4
-Filename: CODE_OF_CONDUCT.md
-Confidence: 98.9648033126294
-Matcher: Coconductor::Matchers::Dice
+Code of conduct:  Contributor Covenant v1.4
+Key:              contributor-covenant/version/1/4
+Family:           contributor-covenant
+Version:          1.4
+Path:             docs/CODE_OF_CONDUCT.md
+Confidence:       98.96%
+Matcher:          Coconductor::Matchers::Dice
+Content hash:     627827ddda36b5c42b3a00418d3d7d5b16e5088a
 ```
 
 ### Codes of Conduct detected

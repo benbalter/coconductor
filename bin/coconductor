@@ -1,23 +1,32 @@
 #!/usr/bin/env ruby
 
-require 'coconductor'
+require_relative '../lib/coconductor'
+require 'thor'
 
-path = ARGV.first || Dir.pwd
-project = Coconductor.project(path)
-coc = project.code_of_conduct
-file = project.code_of_conduct_file
+class CoconductorCLI < Thor
+  package_name 'Coconductor'
+  default_task :detect
 
-if coc.nil? || file.nil?
-  puts 'Code of Conduct not detected'
+  private
+
+  def path
+    args.first || Dir.pwd
+  end
+
+  def project
+    @project ||= Coconductor.project(path)
+  end
+
+  def code_of_conduct
+    project.code_of_conduct
+  end
+
+  def code_of_conduct_file
+    project.code_of_conduct_file
+  end
 end
 
-%w[key family version language].each do |key|
-  value = coc.public_send(key)
-  puts "#{key.capitalize}: #{value}" if value
-end unless coc.nil?
+commands_dir = File.expand_path '../lib/coconductor/commands/', __dir__
+Dir["#{commands_dir}/*.rb"].each { |c| require(c) }
 
-%i[path confidence matcher].each do |key|
-  value = file.public_send(key)
-  value = value.class if key == :matcher
-  puts "#{key.capitalize}: #{value}" if value
-end unless file.nil?
+CoconductorCLI.start(ARGV)
