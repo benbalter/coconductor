@@ -4,7 +4,7 @@ A Code of Conduct detector based off [Licensee](https://github.com/benbalter/lic
 
 ## Installation
 
-`gem install coconductor` or add Coconductor to your project's Gemfile and `bundle install`
+`gem install coconductor` or add `gem 'coconductor'` to your project's Gemfile and `bundle install`
 
 ## Usage
 
