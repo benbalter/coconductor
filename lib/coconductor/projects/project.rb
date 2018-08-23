@@ -16,8 +16,6 @@ module Coconductor
         return unless file
 
         content = load_file(file)
-        file[:dir] = path_relative_to_root(file[:dir])
-
         ProjectFiles::CodeOfConductFile.new(content, file)
       end
 
