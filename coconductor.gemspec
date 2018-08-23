@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'licensee', '~> 9.9'
+  spec.add_dependency 'licensee', '~> 9.9', '>= 9.9.3'
   spec.add_dependency 'thor', '~> 0.20'
   spec.add_dependency 'toml', '~> 0.2'
 
