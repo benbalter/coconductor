@@ -37,7 +37,11 @@ RSpec.describe Coconductor::ProjectFiles::ProjectFile do
   end
 
   it 'returns the path' do
-    expect(subject.path).to eql('./CODE_OF_CONDUCT.txt')
+    expect(subject.path).to eql('CODE_OF_CONDUCT.txt')
+  end
+
+  it 'returns the relative path' do
+    expect(subject.relative_path).to eql('./CODE_OF_CONDUCT.txt')
   end
 
   it 'returns the directory' do
@@ -48,7 +52,11 @@ RSpec.describe Coconductor::ProjectFiles::ProjectFile do
     let(:metadata) { { name: filename, dir: '.github' } }
 
     it 'returns the path' do
-      expect(subject.path).to eql('.github/CODE_OF_CONDUCT.txt')
+      expect(subject.path).to eql('CODE_OF_CONDUCT.txt')
+    end
+
+    it 'returns the relative path' do
+      expect(subject.relative_path).to eql('.github/CODE_OF_CONDUCT.txt')
     end
 
     it 'returns the directory' do

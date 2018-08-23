@@ -22,12 +22,6 @@ module Coconductor
         @files
       end
 
-      def files_from_tree(tree, dir = '.')
-        tree.select { |e| e[:type] == :blob }.map do |entry|
-          entry.merge(dir: dir)
-        end.compact
-      end
-
       def subdir?(tree)
         Coconductor::Projects::Project::DIRS.include? "./#{tree[:name]}/"
       end

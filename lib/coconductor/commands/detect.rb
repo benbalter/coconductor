@@ -21,7 +21,7 @@ class CoconductorCLI < Thor
     end
 
     unless code_of_conduct_file.nil?
-      %i[path confidence matcher content_hash].each do |method|
+      %i[relative_path confidence matcher content_hash].each do |method|
         value = code_of_conduct_file.public_send(method)
         rows << [humanize(method, :method), humanize(value, method)] if value
       end

@@ -5,4 +5,4 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 # Specify your gem's dependencies in coconductor.gemspec
 gemspec
 
-gem 'licensee', github: 'benbalter/licensee', branch: 'coc'
+gem 'licensee', path: '~/projects/licensee'
