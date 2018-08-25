@@ -45,10 +45,14 @@ project.code_of_conduct_file.confidence
 ### Command line
 
 ```
-coconductor detect [PATH]   # Detect the code of conduct of the given project
-coconductor diff [PATH]     # Compare the given code of conduct text to a known code of conduct
-coconductor help [COMMAND]  # Describe available commands or one specific command
-coconductor version         # Return the Coconductor version
+Coconductor commands:
+  coconductor detect [PATH]   # Detect the code of conduct of the given project
+  coconductor diff [PATH]     # Compare the given code of conduct text to a known code of conduct
+  coconductor help [COMMAND]  # Describe available commands or one specific command
+  coconductor version         # Return the Coconductor version
+
+Options:
+  [--remote], [--no-remote]  # Assume PATH is a GitHub owner/repo path
 ```
 
 #### Example output
