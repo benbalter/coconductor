@@ -1,8 +1,11 @@
 [
   Coconductor::Projects::FSProject,
-  Coconductor::Projects::GitProject
+  Coconductor::Projects::GitProject,
+  Coconductor::Projects::GitHubProject
 ].each do |project_type|
   RSpec.describe project_type do
+    let(:user) { '_coconductor_test_fixture' }
+
     context "a #{project_type} project" do
       let(:path) { fixture_path(fixture) }
       let(:cc_1_4) do
@@ -18,6 +21,9 @@
           subject.close
           FileUtils.rm_rf File.expand_path '.git', path
         end
+      elsif described_class == Coconductor::Projects::GitHubProject
+        let(:path) { "https://github.com/#{user}/#{fixture}" }
+        before { webmock_fixtures }
       end
 
       context 'root' do

@@ -1,14 +1,16 @@
 module Coconductor
   module Projects
     module Project
-      DIRS = ['./docs/', './.github/'].freeze
+      DIRS = ['./', './docs/', './.github/'].freeze
 
       def code_of_conduct
         code_of_conduct_file.code_of_conduct if code_of_conduct_file
       end
 
       def code_of_conduct_file
+        return @code_of_conduct_file if defined? @code_of_conduct_file
         return if files.nil? || files.empty?
+
         file = find_files do |filename|
           ProjectFiles::CodeOfConductFile.name_score(filename)
         end.first
@@ -16,7 +18,9 @@ module Coconductor
         return unless file
 
         content = load_file(file)
-        ProjectFiles::CodeOfConductFile.new(content, file)
+        @code_of_conduct_file = begin
+          ProjectFiles::CodeOfConductFile.new(content, file)
+        end
       end
 
       private

@@ -21,7 +21,11 @@ module Coconductor
     end
 
     def project(path, **args)
-      Coconductor::Projects::GitProject.new(path, args)
+      if path =~ %r{\Ahttps://github.com}
+        Coconductor::Projects::GitHubProject.new(path, args)
+      else
+        Coconductor::Projects::GitProject.new(path, args)
+      end
     rescue Coconductor::Projects::GitProject::InvalidRepository
       Coconductor::Projects::FSProject.new(path, args)
     end

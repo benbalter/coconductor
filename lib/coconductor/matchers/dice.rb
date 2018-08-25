@@ -5,6 +5,12 @@ module Coconductor
 
       undef_method :licenses_by_similarity
       undef_method :potential_licenses
+
+      private
+
+      def minimum_confidence
+        Coconductor.confidence_threshold
+      end
     end
   end
 end

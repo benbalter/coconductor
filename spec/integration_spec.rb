@@ -1,9 +1,11 @@
 RSpec.describe 'integration test' do
   [
     Coconductor::Projects::FSProject,
-    Coconductor::Projects::GitProject
+    Coconductor::Projects::GitProject,
+    Coconductor::Projects::GitHubProject
   ].each do |project_type|
     context "with a #{project_type} project" do
+      let(:user) { '_coconductor_test_fixture' }
       let(:filename) { 'CODE_OF_CONDUCT.txt' }
       let(:project_path) { fixture_path(fixture) }
       let(:git_path) { File.expand_path('.git', project_path) }
@@ -18,6 +20,9 @@ RSpec.describe 'integration test' do
         if project_type == Coconductor::Projects::GitProject
           before { git_init(project_path) }
           after { FileUtils.rm_rf(git_path) }
+        elsif project_type == Coconductor::Projects::GitHubProject
+          let(:project_path) { "https://github.com/#{user}/#{fixture}" }
+          before { webmock_fixtures }
         end
 
         context 'contributor covenant 1.4' do

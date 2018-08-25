@@ -43,6 +43,8 @@ class CoconductorCLI < Thor
       return options[:code_of_conduct_to_diff]
     end
 
+    return project.code_of_conduct_file if remote?
+
     @code_of_conduct_to_diff ||= begin
       if STDIN.tty?
         error 'You must pipe the file contents to the command via STDIN'

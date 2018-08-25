@@ -2,15 +2,22 @@
 
 require_relative '../lib/coconductor'
 require 'thor'
+require 'octokit'
 
 class CoconductorCLI < Thor
   package_name 'Coconductor'
   default_task :detect
+  class_option :remote, type: :boolean,
+                        desc: 'Assume PATH is a GitHub owner/repo path'
 
   private
 
   def path
-    args.first || Dir.pwd
+    @path ||= if remote?
+                "https://github.com/#{args.first}"
+              else
+                args.first || Dir.pwd
+              end
   end
 
   def project
@@ -23,6 +30,10 @@ class CoconductorCLI < Thor
 
   def code_of_conduct_file
     project.code_of_conduct_file
+  end
+
+  def remote?
+    options[:remote] || path =~ %r{^https://}
   end
 end
 

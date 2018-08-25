@@ -4,6 +4,14 @@ RSpec.describe Coconductor::Matchers::FieldAware do
     Coconductor::ProjectFiles::CodeOfConductFile.new(content, filename)
   end
 
+  context 'a random string' do
+    let(:content) { 'asdf' }
+
+    it "doesn't match" do
+      expect(file.match).to be_nil
+    end
+  end
+
   Coconductor.codes_of_conduct.each do |code_of_conduct|
     context code_of_conduct.name do
       let(:content) { code_of_conduct.content }
