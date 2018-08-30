@@ -3,26 +3,20 @@ require 'toml'
 module Coconductor
   class InvalidCodeOfConduct < ArgumentError; end
   class CodeOfConduct
-    VENDORED_CODES_OF_CONDUCT = %w[
-      citizen-code-of-conduct
-      contributor-covenant
-    ].freeze
-
-    KEY_REGEX = %r{
-      (?<family>#{Regexp.union(VENDORED_CODES_OF_CONDUCT)})
-      /version
-      /(?<major>\d)/(?<minor>\d)(/(?<patch>\d))?
-      /#{Coconductor::ProjectFiles::CodeOfConductFile::FILENAME_REGEX}
-    }ix
-    FIELD_REGEX = /\[(?<name>[A-Z_ ]{2,}).*\]/
-
     class << self
       def all
         @all ||= keys.map { |key| new(key) }
       end
 
-      def find(key)
-        all.find { |coc| coc.key == key }
+      def latest
+        @latest ||= families.map { |family| find(family) }
+      end
+
+      # Returns the code of conduct specified by the key with version,
+      # or the latest in the family if only the family is specified
+      def find(key_or_family)
+        match = all.find { |coc| coc.key == key_or_family }
+        match || latest_in_family(key_or_family)
       end
       alias [] find
       alias find_by_key find
@@ -40,16 +34,37 @@ module Coconductor
         end
       end
 
+      def latest_in_family(family, language: nil)
+        cocs = all.select do |coc|
+          coc.language == language && coc.family == family
+        end
+        cocs.max_by(&:version)
+      end
+
+      def families
+        @families ||= Dir["#{vendor_dir}/*"].map do |dir|
+          File.basename(dir)
+        end
+      end
+
       private
 
       def vendored_codes_of_conduct
         @vendored_codes_of_conduct ||= begin
-          cocs = "{#{VENDORED_CODES_OF_CONDUCT.join(',')}}"
+          cocs = "{#{families.join(',')}}"
           path = File.join vendor_dir, cocs, '**', '*.md'
           Dir.glob(path)
         end
       end
     end
+
+    KEY_REGEX = %r{
+      (?<family>#{Regexp.union(CodeOfConduct.families)})
+      /version
+      /(?<major>\d)/(?<minor>\d)(/(?<patch>\d))?
+      /#{Coconductor::ProjectFiles::CodeOfConductFile::FILENAME_REGEX}
+    }ix
+    FIELD_REGEX = /\[(?<name>[A-Z_ ]{2,}).*\]/
 
     attr_reader :key
     attr_writer :content
@@ -87,6 +102,7 @@ module Coconductor
     def content
       @content ||= parts.last
     end
+    alias body content
 
     def inspect
       "#<Licensee::CodeOfConduct key=#{key}>"
@@ -104,6 +120,10 @@ module Coconductor
       family == 'citizen-code-of-conduct'
     end
 
+    def no_code_of_conduct?
+      family == 'no-code-of-conduct'
+    end
+
     def fields
       content.scan(FIELD_REGEX).flatten
     end
@@ -111,11 +131,13 @@ module Coconductor
     private
 
     def filename
-      if contributor_covenant?
-        filename = 'code-of-conduct'
-      elsif citizen_code_of_conduct?
-        filename = 'citizen_code_of_conduct'
-      end
+      filename = if contributor_covenant?
+                   'code-of-conduct'
+                 elsif citizen_code_of_conduct?
+                   'citizen_code_of_conduct'
+                 else
+                   'CODE_OF_CONDUCT'
+                 end
 
       filename << '.' + language if language
       filename << '.md'

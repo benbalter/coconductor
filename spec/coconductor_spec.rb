@@ -3,6 +3,7 @@ RSpec.describe Coconductor do
     Coconductor::CodeOfConduct.find('contributor-covenant/version/1/4')
   end
   let(:path) { project_root }
+  let(:code_of_conduct_count) { 48 }
 
   it 'has a version number' do
     expect(described_class::VERSION).not_to be nil
@@ -10,7 +11,7 @@ RSpec.describe Coconductor do
 
   it 'returns all codes of conduct' do
     cocs = described_class.codes_of_conduct
-    expect(cocs.count).to eql(47)
+    expect(cocs.count).to eql(code_of_conduct_count)
     expect(cocs).to all(be_a(Coconductor::CodeOfConduct))
   end
 

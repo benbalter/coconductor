@@ -4,31 +4,12 @@ require 'fileutils'
 require 'open-uri'
 require 'toml'
 
-repo = 'ContributorCovenant/contributor_covenant'
-dir = File.expand_path 'vendor/contributor-covenant'
-include_path = '*/content/version'
+def mkdir(dir)
+  FileUtils.rm_rf(dir)
+  FileUtils.mkdir_p(dir)
+end
 
-FileUtils.rm_rf(dir)
-FileUtils.mkdir_p(dir)
-
-tar_args = "--include=#{include_path} --strip-components=2 -C #{dir}"
-`curl -L "https://api.github.com/repos/#{repo}/tarball" | tar xf - #{tar_args}`
-
-repo = 'stumpsyn/policies'
-dir = 'vendor/citizen-code-of-conduct'
-file = 'citizen_code_of_conduct.md'
-versions = {
-  '2.0' => 'd0594789ea324a42e26b495034952b6ce08d9f51',
-  '2.1' => 'b7705a4315a5e58fea58ae3d4b1de82bd564ac86',
-  '2.2' => '93b7b06f52c9dd526d2395bfa9f5f1723deae32a',
-  '2.3' => 'b1eb8deb5da073c2bd02a8e742e017edfc422554'
-}
-
-FileUtils.rm_rf(dir)
-FileUtils.mkdir_p(dir)
-
-versions.each do |version, sha|
-  url = "https://github.com/#{repo}/raw/#{sha}/#{file}"
+def download_and_write(url, version: '1.0', dir: '', file: 'CODE_OF_CONDUCT.md')
   content = URI.open(url).read
   meta = { 'version' => version }
   toml = TOML::Generator.new(meta).body
@@ -37,3 +18,38 @@ versions.each do |version, sha|
   FileUtils.mkdir_p File.dirname(path)
   File.write(path, content)
 end
+
+repo = 'ContributorCovenant/contributor_covenant'
+dir = File.expand_path '../vendor/contributor-covenant', __dir__
+include_path = '*/content/version'
+
+mkdir(dir)
+
+tar_args = "--include=#{include_path} --strip-components=2 -C #{dir}"
+`curl -L "https://api.github.com/repos/#{repo}/tarball" | tar xf - #{tar_args}`
+
+repo = 'stumpsyn/policies'
+dir = File.expand_path '../vendor/citizen-code-of-conduct', __dir__
+file = 'citizen_code_of_conduct.md'
+versions = {
+  '2.0' => 'd0594789ea324a42e26b495034952b6ce08d9f51',
+  '2.1' => 'b7705a4315a5e58fea58ae3d4b1de82bd564ac86',
+  '2.2' => '93b7b06f52c9dd526d2395bfa9f5f1723deae32a',
+  '2.3' => 'b1eb8deb5da073c2bd02a8e742e017edfc422554'
+}
+
+mkdir(dir)
+
+versions.each do |version, sha|
+  url = "https://github.com/#{repo}/raw/#{sha}/#{file}"
+  download_and_write(url, version: version, dir: dir, file: file)
+end
+
+repo = 'domgetter/NCoC'
+dir = 'vendor/no-code-of-conduct'
+file = 'CODE_OF_CONDUCT.md'
+
+mkdir(dir)
+
+url = "https://github.com/#{repo}/raw/master/#{file}"
+download_and_write(url, dir: dir, file: file)

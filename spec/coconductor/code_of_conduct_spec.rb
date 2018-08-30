@@ -1,5 +1,5 @@
 RSpec.describe Coconductor::CodeOfConduct do
-  let(:code_of_conduct_count) { 47 }
+  let(:code_of_conduct_count) { 48 }
 
   context 'class methods' do
     it 'loads all codes of conduct' do
@@ -23,6 +23,38 @@ RSpec.describe Coconductor::CodeOfConduct do
           end
         end
       end
+
+      it 'returns the latest in the family' do
+        found = described_class.find('contributor-covenant')
+        expect(found).to be_a(described_class)
+        expect(found.family).to eql('contributor-covenant')
+        expect(found.version).to eql('1.4')
+      end
+    end
+
+    it 'returns the latest in a given family' do
+      found = described_class.latest_in_family('citizen-code-of-conduct')
+      expect(found).to be_a(described_class)
+      expect(found.family).to eql('citizen-code-of-conduct')
+      expect(found.version).to eql('2.3')
+    end
+
+    it 'returns families' do
+      expected = %w[
+        no-code-of-conduct
+        citizen-code-of-conduct
+        contributor-covenant
+      ]
+      expect(described_class.families).to eql(expected)
+    end
+
+    it 'returns the latest in each family' do
+      expected = %w[
+        no-code-of-conduct/version/1/0
+        citizen-code-of-conduct/version/2/3
+        contributor-covenant/version/1/4
+      ]
+      expect(described_class.latest.map(&:key)).to eql(expected)
     end
 
     it 'returns keys' do
@@ -80,7 +112,7 @@ RSpec.describe Coconductor::CodeOfConduct do
       end
 
       it 'returns the family' do
-        families = described_class::VENDORED_CODES_OF_CONDUCT
+        families = described_class.families
         expect(families).to include(subject.family)
       end
     end
