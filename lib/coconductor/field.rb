@@ -6,6 +6,14 @@ module Coconductor
     # the matchable raw text within the code of conduct including brackets
     attr_reader :raw_text
 
+    # Hard coded field descriptions in the form of key => description
+    DESCRIPTIONS = {
+      'link_to_reporting_guidelines' => 'An optional link to guidelines for ' \
+        'how reports of unacceptable behavior will be handled.',
+      'link_to_policy' => 'An optional link to guidelines for how warnings ' \
+        'and expulsions of community members will be handled.'
+    }.freeze
+
     class << self
       # Returns an array of Fields for the given code of conduct
       def from_code_of_conduct(code_of_conduct)
@@ -50,7 +58,10 @@ module Coconductor
     end
 
     def description
-      @description ||= parts ? parts[:description] : nil
+      @description ||= begin
+        return parts[:description] if parts && parts[:description] != ''
+        DESCRIPTIONS[key]
+      end
     end
 
     def inspect

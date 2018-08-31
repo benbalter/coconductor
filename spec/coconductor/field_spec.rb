@@ -60,15 +60,24 @@ RSpec.describe Coconductor::Field do
     expect(subject.description).to eql('Some description.')
   end
 
+  context 'a hard-coded description' do
+    let(:raw_text) { '[LINK_TO_POLICY]' }
+
+    it 'returns the description' do
+      expected = /how warnings and expulsions of community members will be/
+      expect(subject.description).to match(expected)
+    end
+  end
+
   context 'normalizing' do
     examples = {
       '[SOME FIELD]' => {
         name: 'SOME FIELD', label: 'Some field',
-        key: 'some_field', description: ''
+        key: 'some_field', description: nil
       },
       '[SOME_FIELD]' => {
         name: 'SOME_FIELD', label: 'Some field',
-        key: 'some_field', description: ''
+        key: 'some_field', description: nil
       },
       '[SOME_FIELD: description]' => {
         name: 'SOME_FIELD', label: 'Some field',
@@ -80,19 +89,19 @@ RSpec.describe Coconductor::Field do
       },
       '[YOUR CONTACT INFO]' => {
         name: 'YOUR CONTACT INFO', label: 'Contact info',
-        key: 'contact_info', description: ''
+        key: 'contact_info', description: nil
       },
       '[INSERT_CONTACT_INFO]' => {
         name: 'INSERT_CONTACT_INFO', label: 'Contact info',
-        key: 'contact_info', description: ''
+        key: 'contact_info', description: nil
       },
       '[YOUR CONTACT INFO HERE]' => {
         name: 'YOUR CONTACT INFO HERE', label: 'Contact info',
-        key: 'contact_info', description: ''
+        key: 'contact_info', description: nil
       },
       '[INSERT_CONTACT_INFO_HERE]' => {
         name: 'INSERT_CONTACT_INFO_HERE', label: 'Contact info',
-        key: 'contact_info', description: ''
+        key: 'contact_info', description: nil
       }
     }
 
