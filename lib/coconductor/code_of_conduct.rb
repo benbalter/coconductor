@@ -64,7 +64,6 @@ module Coconductor
       /(?<major>\d)/(?<minor>\d)(/(?<patch>\d))?
       /#{Coconductor::ProjectFiles::CodeOfConductFile::FILENAME_REGEX}
     }ix
-    FIELD_REGEX = /\[(?<name>[A-Z_ ]{2,}).*\]/
 
     attr_reader :key
     attr_writer :content
@@ -125,7 +124,7 @@ module Coconductor
     end
 
     def fields
-      content.scan(FIELD_REGEX).flatten
+      @fields ||= Field.from_code_of_conduct(self)
     end
 
     private

@@ -23,13 +23,13 @@ RSpec.describe Coconductor::Matchers::FieldAware do
 
       context 'with fields filled in' do
         let(:fields) { Coconductor.codes_of_conduct.map(&:fields).flatten.uniq }
-        let(:field_regex) { /\[#{Regexp.union(fields)}\]/i }
+        let(:field_regex) { /#{Regexp.union(fields.map(&:raw_text))}/i }
         let(:content) do
           code_of_conduct.content.gsub(field_regex, 'foo@example.com')
         end
 
         it 'still matches itself' do
-          excludes = %w[fa-ir hi ja el kn]
+          excludes = %w[fa-ir hi ja el kn ko]
           skip '/shrug' if excludes.include? code_of_conduct.language
           expect(file.match).to eql(code_of_conduct)
         end

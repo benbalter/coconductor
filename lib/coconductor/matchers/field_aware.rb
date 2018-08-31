@@ -23,7 +23,7 @@ module Coconductor
         coc = code_of_conduct.dup
         coc.instance_variable_set '@content_normalized', nil
         coc.instance_variable_set '@content_without_title_and_version', nil
-        field_regex = /\[?#{Regexp.union(coc.fields)}\]?/
+        field_regex = /#{Regexp.union(coc.fields.map(&:raw_text))}/i
         coc.content = coc.content.gsub(field_regex, FIELD_PLACEHOLDER)
         regex = Regexp.escape(coc.content_normalized)
         regex = regex.gsub(FIELD_PLACEHOLDER_REGEX, '([a-z ]+?)')
