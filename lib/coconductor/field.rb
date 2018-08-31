@@ -79,7 +79,7 @@ module Coconductor
 
     def normalized_name
       @normalized_name ||= begin
-        normalized_name = name.tr(' ', '_')
+        normalized_name = name.strip.tr(' ', '_')
         normalized_name = normalized_name.gsub(/\A(YOUR|INSERT)_/i, '')
         normalized_name = normalized_name.gsub(/_?HERE\z/i, '')
         normalized_name.strip
