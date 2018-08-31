@@ -102,6 +102,10 @@ RSpec.describe Coconductor::Field do
       '[INSERT_CONTACT_INFO_HERE]' => {
         name: 'INSERT_CONTACT_INFO_HERE', label: 'Contact info',
         key: 'contact_info', description: nil
+      },
+      '[FIELD -- description]' => {
+        name: 'FIELD', label: 'Field',
+        key: 'field', description: 'description'
       }
     }
 
