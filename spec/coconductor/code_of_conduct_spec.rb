@@ -67,15 +67,24 @@ RSpec.describe Coconductor::CodeOfConduct do
     end
   end
 
-  it 'knows a contributor covenant license' do
+  it 'knows a contributor covenant' do
     coc = described_class.find('contributor-covenant/version/1/4')
     expect(coc).to be_contributor_covenant
     expect(coc).to_not be_citizen_code_of_conduct
+    expect(coc).to_not be_no_code_of_conduct
   end
 
-  it 'knows a contributor covenant license' do
+  it 'knows a contributor covenant' do
     coc = described_class.find('citizen-code-of-conduct/version/2/3')
     expect(coc).to be_citizen_code_of_conduct
+    expect(coc).to_not be_contributor_covenant
+    expect(coc).to_not be_no_code_of_conduct
+  end
+
+  it 'knows a no code of conduct' do
+    coc = described_class.find('no-code-of-conduct/version/1/0')
+    expect(coc).to be_no_code_of_conduct
+    expect(coc).to_not be_citizen_code_of_conduct
     expect(coc).to_not be_contributor_covenant
   end
 
