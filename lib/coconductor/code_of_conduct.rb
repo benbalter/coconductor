@@ -99,7 +99,12 @@ module Coconductor
     end
 
     def content
-      @content ||= parts.last
+      # See https://github.com/stumpsyn/policies/pull/21
+      @content ||= if citizen_code_of_conduct?
+                     parts.last.gsub(' COMMUNITY_NAME ', ' [COMMUNITY_NAME] ')
+                   else
+                     parts.last
+                   end
     end
     alias body content
 

@@ -88,6 +88,11 @@ RSpec.describe Coconductor::CodeOfConduct do
     expect(coc).to_not be_contributor_covenant
   end
 
+  it 'corrects COMMUNITY_NAME in contributor_covenant' do
+    coc = described_class.find('citizen-code-of-conduct')
+    expect(coc.content).to_not match(' COMMUNITY_NAME ')
+  end
+
   Coconductor::CodeOfConduct.all.each do |coc|
     context coc.name do
       subject { coc }
