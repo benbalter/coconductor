@@ -108,11 +108,9 @@ RSpec.describe Coconductor::CodeOfConduct do
         expect(subject.version).to match(/\d\.\d/)
       end
 
-      if coc.key.start_with? 'contributor-covenant'
-        it 'returns the language' do
-          unless subject.key.split('/').last =~ /\d/
-            expect(subject.language).to match(/[a-z-]{2,5}/)
-          end
+      it 'returns the language' do
+        unless subject.key.split('/').last =~ /\d/
+          expect(subject.language).to match(/[a-z-]{2,5}/)
         end
       end
 

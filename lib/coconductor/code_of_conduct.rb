@@ -34,7 +34,7 @@ module Coconductor
         end
       end
 
-      def latest_in_family(family, language: nil)
+      def latest_in_family(family, language: DEFAULT_LANGUAGE)
         cocs = all.select do |coc|
           coc.language == language && coc.family == family
         end
@@ -64,6 +64,7 @@ module Coconductor
       /(?<major>\d)/(?<minor>\d)(/(?<patch>\d))?
       /#{Coconductor::ProjectFiles::CodeOfConductFile::FILENAME_REGEX}
     }ix
+    DEFAULT_LANGUAGE = 'en'.freeze
 
     attr_reader :key
     attr_writer :content
@@ -80,14 +81,18 @@ module Coconductor
     def language
       @language ||= begin
         parts = key.split('/')
-        parts.last if parts.last =~ /^[a-z-]{2,5}$/
+        if parts.last =~ /^[a-z-]{2,5}$/
+          parts.last
+        else
+          DEFAULT_LANGUAGE
+        end
       end
     end
 
     def name
       return @name if defined? @name
       @name = name_without_version.dup
-      @name << " (#{language.upcase})" if language
+      @name << " (#{language.upcase})" unless default_language?
       @name << " v#{version}" if version
       @name
     end
@@ -144,13 +149,13 @@ module Coconductor
                    'CODE_OF_CONDUCT'
                  end
 
-      filename << '.' + language if language
+      filename << '.' + language unless default_language?
       filename << '.md'
     end
 
     def path
       parts = key.split('/')
-      parts.pop if language
+      parts.pop unless default_language?
       path = File.join(*parts[0...5], filename)
       path = File.expand_path path, self.class.vendor_dir
       Pathname.new(path)
@@ -177,6 +182,10 @@ module Coconductor
 
     def parts
       @parts ||= raw_content.split('+++')
+    end
+
+    def default_language?
+      language == DEFAULT_LANGUAGE
     end
   end
 end
