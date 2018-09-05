@@ -13,6 +13,7 @@ RSpec.describe 'integration test' do
       let(:cc_1_4) do
         Coconductor::CodeOfConduct.find('contributor-covenant/version/1/4')
       end
+      let(:other) { Coconductor::CodeOfConduct.find('other') }
 
       subject { project_type.new(project_path, arguments) }
 
@@ -54,6 +55,14 @@ RSpec.describe 'integration test' do
 
           it 'matches' do
             expect(subject.code_of_conduct).to eql(cc_1_4)
+          end
+        end
+
+        context 'An unknown code of conduct' do
+          let(:fixture) { 'other' }
+
+          it 'returns other' do
+            expect(subject.code_of_conduct).to eql(other)
           end
         end
       end

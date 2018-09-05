@@ -63,4 +63,17 @@ RSpec.describe Coconductor::ProjectFiles::ProjectFile do
       expect(subject.directory).to eql '.github'
     end
   end
+
+  context 'an unknown code of conduct' do
+    let(:content) { 'something else' }
+    let(:other) { Coconductor::CodeOfConduct.find('other') }
+    before { allow(subject).to receive(:length).and_return(content.length) }
+    before do
+      allow(subject).to receive(:wordset).and_return(content.split(' ').to_set)
+    end
+
+    it 'returns the "other" code of conduct' do
+      expect(subject.code_of_conduct).to eql(other)
+    end
+  end
 end
