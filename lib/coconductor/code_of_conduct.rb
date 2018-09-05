@@ -153,7 +153,7 @@ module Coconductor
       filename << '.md'
     end
 
-    def path
+    def filepath
       parts = key.split('/')
       parts.pop unless default_language?
       path = File.join(*parts[0...5], filename)
@@ -163,11 +163,11 @@ module Coconductor
 
     # Raw content of code of conduct file, including TOML front matter
     def raw_content
-      unless File.exist?(path)
+      unless File.exist?(filepath)
         msg = "'#{key}' is not a valid code of conduct key"
         raise Coconductor::InvalidCodeOfConduct, msg
       end
-      @raw_content ||= File.read(path, encoding: 'utf-8')
+      @raw_content ||= File.read(filepath, encoding: 'utf-8')
     end
 
     def toml
