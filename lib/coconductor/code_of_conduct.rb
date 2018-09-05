@@ -15,7 +15,7 @@ module Coconductor
       # Returns the code of conduct specified by the key with version,
       # or the latest in the family if only the family is specified
       def find(key_or_family)
-        return new('other') if key_or_family == 'other'
+        return new(key_or_family) if new(key_or_family).pseudo?
         match = all.find { |coc| coc.key == key_or_family }
         match || latest_in_family(key_or_family)
       end
@@ -82,7 +82,7 @@ module Coconductor
     def language
       @language ||= begin
         parts = key.split('/')
-        if other?
+        if pseudo?
           nil
         elsif parts.last =~ /^[a-z-]{2,5}$/
           parts.last
@@ -124,7 +124,7 @@ module Coconductor
     end
 
     def family
-      @family ||= key.split('/').first
+      @family ||= key.split('/').first unless none?
     end
 
     def contributor_covenant?
@@ -139,8 +139,19 @@ module Coconductor
       family == 'no-code-of-conduct'
     end
 
+    # The "other" code of conduct represents an unidentifiable code of conduct
     def other?
       key == 'other'
+    end
+
+    # The "none" code of conduct represents the lack of a code of conduct
+    def none?
+      key == 'none'
+    end
+
+    # Code of conduct is an pseudo code of conduct (e.g., none, other)
+    def pseudo?
+      other? || none?
     end
 
     def fields
@@ -178,7 +189,7 @@ module Coconductor
 
     # Raw content of code of conduct file, including TOML front matter
     def raw_content
-      return if other?
+      return if pseudo?
       unless File.exist?(filepath)
         msg = "'#{key}' is not a valid code of conduct key"
         raise Coconductor::InvalidCodeOfConduct, msg
@@ -201,7 +212,7 @@ module Coconductor
     end
 
     def default_language?
-      other? || language == DEFAULT_LANGUAGE
+      pseudo? || language == DEFAULT_LANGUAGE
     end
   end
 end

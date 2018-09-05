@@ -113,40 +113,50 @@ RSpec.describe Coconductor::CodeOfConduct do
     expect(contributor).to_not eql(other)
   end
 
-  context 'the other code of conduct' do
-    subject { described_class.find('other') }
+  %w[other none].each do |type|
+    context "the #{type} psuedo code of conduct" do
+      subject { described_class.find(type) }
 
-    it 'can find other' do
-      expect(subject).to_not be_nil
-    end
+      it "can find the #{type} code of conduct" do
+        expect(subject).to_not be_nil
+      end
 
-    it 'returns the key' do
-      expect(subject.key).to eql('other')
-    end
+      it 'returns the key' do
+        expect(subject.key).to eql(type)
+      end
 
-    it 'returns the name' do
-      expect(subject.name).to eql('Other')
-    end
+      it 'returns the name' do
+        expect(subject.name).to eql(type.capitalize)
+      end
 
-    it 'returns the name without version' do
-      expect(subject.name_without_version).to eql('Other')
-    end
+      it 'returns the name without version' do
+        expect(subject.name_without_version).to eql(type.capitalize)
+      end
 
-    it 'returns the family' do
-      expect(subject.family).to eql('other')
-    end
+      it 'returns the family' do
+        if type == 'other'
+          expect(subject.family).to eql(type)
+        else
+          expect(subject.family).to be_nil
+        end
+      end
 
-    it 'returns no fields' do
-      expect(subject.fields).to eql([])
-    end
+      it 'returns no fields' do
+        expect(subject.fields).to eql([])
+      end
 
-    it 'is other?' do
-      expect(subject).to be_other
-    end
+      it "is #{type}?" do
+        expect(subject.public_send("#{type}?")).to be_truthy
+      end
 
-    %w[language version content].each do |method|
-      it "returns nil for #{method}" do
-        expect(subject.public_send(method)).to be_nil
+      it 'is pseudo?' do
+        expect(subject).to be_pseudo
+      end
+
+      %w[language version content].each do |method|
+        it "returns nil for #{method}" do
+          expect(subject.public_send(method)).to be_nil
+        end
       end
     end
   end
