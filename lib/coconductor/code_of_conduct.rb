@@ -32,7 +32,7 @@ module Coconductor
           key = path.relative_path_from(vendor_dir)
           matches = KEY_REGEX.match(key.to_path)
           matches.to_a.compact[1..-1].insert(1, 'version').join('/') if matches
-        end
+        end.compact
       end
 
       def latest_in_family(family, language: DEFAULT_LANGUAGE)
