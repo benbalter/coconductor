@@ -102,7 +102,7 @@ module Coconductor
       # See https://github.com/stumpsyn/policies/pull/21
       @content ||= if citizen_code_of_conduct?
                      fields = %w[COMMUNITY_NAME GOVERNING_BODY]
-                     parts.last.gsub(/ #{Regexp.union(fields)} /, ' [$1] ')
+                     parts.last.gsub(/ (#{Regexp.union(fields)}) /, ' [\1] ')
                    else
                      parts.last
                    end
