@@ -1,7 +1,7 @@
 module Coconductor
   # Represents a fillable field in a code of conduct
   class Field
-    REGEX = /\[(?<name>[A-Z_ ]{2,})[\s:-]*(?<description>.*)\]/
+    REGEX = /\[(?<name>[A-Z_ ]{2,})[\s:-]*(?<description>.*?)\]/
 
     # the matchable raw text within the code of conduct including brackets
     attr_reader :raw_text
