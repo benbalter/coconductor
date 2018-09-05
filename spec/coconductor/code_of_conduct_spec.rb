@@ -100,8 +100,25 @@ RSpec.describe Coconductor::CodeOfConduct do
     expect(coc.content).to_not include(' GOVERNING_BODY ')
   end
 
+  it 'compares keys' do
+    contributor = described_class.find('contributor-covenant')
+    citizen = described_class.find('citizen-code-of-conduct')
+    other = described_class.new('other')
+    other2 = described_class.new('other')
+
+    expect(contributor).to eql(contributor)
+    expect(other).to eql(other2)
+
+    expect(contributor).to_not eql(citizen)
+    expect(contributor).to_not eql(other)
+  end
+
   context 'the other code of conduct' do
-    subject { described_class.new('other') }
+    subject { described_class.find('other') }
+
+    it 'can find other' do
+      expect(subject).to_not be_nil
+    end
 
     it 'returns the key' do
       expect(subject.key).to eql('other')

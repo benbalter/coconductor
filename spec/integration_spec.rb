@@ -13,7 +13,7 @@ RSpec.describe 'integration test' do
       let(:cc_1_4) do
         Coconductor::CodeOfConduct.find('contributor-covenant/version/1/4')
       end
-      let(:other) { Coconductor::CodeOfConduct.find('other') }
+      let(:other) { Coconductor::CodeOfConduct.new('other') }
 
       subject { project_type.new(project_path, arguments) }
 

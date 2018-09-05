@@ -2,7 +2,11 @@ module Coconductor
   module ProjectFiles
     class ProjectFile < Licensee::ProjectFiles::ProjectFile
       def code_of_conduct
-        matcher && matcher.match || CodeOfConduct.find('other')
+        if matcher
+          matcher.match
+        else
+          CodeOfConduct.find('other')
+        end
       end
 
       undef_method :license

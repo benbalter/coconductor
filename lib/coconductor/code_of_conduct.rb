@@ -15,6 +15,7 @@ module Coconductor
       # Returns the code of conduct specified by the key with version,
       # or the latest in the family if only the family is specified
       def find(key_or_family)
+        return new('other') if key_or_family == 'other'
         match = all.find { |coc| coc.key == key_or_family }
         match || latest_in_family(key_or_family)
       end
@@ -145,6 +146,11 @@ module Coconductor
     def fields
       @fields ||= Field.from_code_of_conduct(self)
     end
+
+    def ==(other)
+      other.is_a?(CodeOfConduct) && key == other.key
+    end
+    alias eql? ==
 
     private
 
