@@ -81,7 +81,9 @@ module Coconductor
     def language
       @language ||= begin
         parts = key.split('/')
-        if parts.last =~ /^[a-z-]{2,5}$/
+        if other?
+          nil
+        elsif parts.last =~ /^[a-z-]{2,5}$/
           parts.last
         else
           DEFAULT_LANGUAGE
@@ -105,7 +107,9 @@ module Coconductor
 
     def content
       # See https://github.com/stumpsyn/policies/pull/21
-      @content ||= if citizen_code_of_conduct?
+      @content ||= if parts.nil?
+                     nil
+                   elsif citizen_code_of_conduct?
                      fields = %w[COMMUNITY_NAME GOVERNING_BODY]
                      parts.last.gsub(/ (#{Regexp.union(fields)}) /, ' [\1] ')
                    else
@@ -134,6 +138,10 @@ module Coconductor
       family == 'no-code-of-conduct'
     end
 
+    def other?
+      key == 'other'
+    end
+
     def fields
       @fields ||= Field.from_code_of_conduct(self)
     end
@@ -154,15 +162,17 @@ module Coconductor
     end
 
     def filepath
+      return @filepath if defined? @filepath
       parts = key.split('/')
       parts.pop unless default_language?
       path = File.join(*parts[0...5], filename)
       path = File.expand_path path, self.class.vendor_dir
-      Pathname.new(path)
+      @filepath = Pathname.new(path)
     end
 
     # Raw content of code of conduct file, including TOML front matter
     def raw_content
+      return if other?
       unless File.exist?(filepath)
         msg = "'#{key}' is not a valid code of conduct key"
         raise Coconductor::InvalidCodeOfConduct, msg
@@ -172,7 +182,7 @@ module Coconductor
 
     def toml
       @toml ||= begin
-        if parts.length == 3
+        if parts && parts.length == 3
           TOML::Parser.new(parts[1]).parsed
         else
           {}
@@ -181,11 +191,11 @@ module Coconductor
     end
 
     def parts
-      @parts ||= raw_content.split('+++')
+      @parts ||= raw_content.split('+++') if raw_content
     end
 
     def default_language?
-      language == DEFAULT_LANGUAGE
+      other? || language == DEFAULT_LANGUAGE
     end
   end
 end

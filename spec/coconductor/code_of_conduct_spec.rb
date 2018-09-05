@@ -100,6 +100,40 @@ RSpec.describe Coconductor::CodeOfConduct do
     expect(coc.content).to_not include(' GOVERNING_BODY ')
   end
 
+  context 'the other code of conduct' do
+    subject { described_class.new('other') }
+
+    it 'returns the key' do
+      expect(subject.key).to eql('other')
+    end
+
+    it 'returns the name' do
+      expect(subject.name).to eql('Other')
+    end
+
+    it 'returns the name without version' do
+      expect(subject.name_without_version).to eql('Other')
+    end
+
+    it 'returns the family' do
+      expect(subject.family).to eql('other')
+    end
+
+    it 'returns no fields' do
+      expect(subject.fields).to eql([])
+    end
+
+    it 'is other?' do
+      expect(subject).to be_other
+    end
+
+    %w[language version content].each do |method|
+      it "returns nil for #{method}" do
+        expect(subject.public_send(method)).to be_nil
+      end
+    end
+  end
+
   Coconductor::CodeOfConduct.all.each do |coc|
     context coc.name do
       subject { coc }

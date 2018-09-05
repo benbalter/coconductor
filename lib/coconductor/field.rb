@@ -18,6 +18,7 @@ module Coconductor
       # Returns an array of Fields for the given code of conduct
       def from_code_of_conduct(code_of_conduct)
         matches = []
+        return [] unless code_of_conduct && code_of_conduct.content
 
         code_of_conduct.content.scan(REGEX) do |_m|
           matches << Regexp.last_match
