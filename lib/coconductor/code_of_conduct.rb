@@ -31,7 +31,10 @@ module Coconductor
           path = Pathname.new(path)
           key = path.relative_path_from(vendor_dir)
           matches = KEY_REGEX.match(key.to_path)
-          matches.to_a.compact[1..-1].insert(1, 'version').join('/') if matches
+          next unless matches
+          [
+            matches['family'], 'version', matches['version'], matches['lang']
+          ].compact.join('/')
         end.compact
       end
 
@@ -39,7 +42,7 @@ module Coconductor
         cocs = all.select do |coc|
           coc.language == language && coc.family == family
         end
-        cocs.max_by(&:version)
+        cocs.max_by { |c| c.geek_feminism? ? !c.version : c.version }
       end
 
       def families
@@ -62,7 +65,7 @@ module Coconductor
     KEY_REGEX = %r{
       (?<family>#{Regexp.union(CodeOfConduct.families)})
       /version
-      /(?<major>\d)/(?<minor>\d)(/(?<patch>\d))?
+      /(?<version>(?<major>\d)/(?<minor>\d)(/(?<patch>\d))?|(longer|shorter))
       /#{Coconductor::ProjectFiles::CodeOfConductFile::FILENAME_REGEX}
     }ix
     DEFAULT_LANGUAGE = 'en'.freeze
@@ -70,6 +73,12 @@ module Coconductor
     attr_reader :key
     attr_writer :content
     include Licensee::ContentHelper
+
+    # Define dynamic predicate helpers to determine if a code of conduct is a
+    # member of a given family, e.g., code_of_conduct.contributor_covenant?
+    CodeOfConduct.families.each do |f|
+      define_method(f.tr('-', '_') + '?') { family == f }
+    end
 
     def initialize(key)
       @key = key
@@ -125,18 +134,6 @@ module Coconductor
 
     def family
       @family ||= key.split('/').first unless none?
-    end
-
-    def contributor_covenant?
-      family == 'contributor-covenant'
-    end
-
-    def citizen_code_of_conduct?
-      family == 'citizen-code-of-conduct'
-    end
-
-    def no_code_of_conduct?
-      family == 'no-code-of-conduct'
     end
 
     # The "other" code of conduct represents an unidentifiable code of conduct

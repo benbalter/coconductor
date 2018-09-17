@@ -1,5 +1,5 @@
 RSpec.describe Coconductor::CodeOfConduct do
-  let(:code_of_conduct_count) { 48 }
+  let(:code_of_conduct_count) { 50 }
 
   context 'class methods' do
     it 'loads all codes of conduct' do
@@ -41,6 +41,7 @@ RSpec.describe Coconductor::CodeOfConduct do
 
     it 'returns families' do
       expected = %w[
+        geek-feminism
         no-code-of-conduct
         citizen-code-of-conduct
         contributor-covenant
@@ -50,6 +51,7 @@ RSpec.describe Coconductor::CodeOfConduct do
 
     it 'returns the latest in each family' do
       expected = %w[
+        geek-feminism/version/longer
         no-code-of-conduct/version/1/0
         citizen-code-of-conduct/version/2/3
         contributor-covenant/version/1/4
@@ -166,7 +168,8 @@ RSpec.describe Coconductor::CodeOfConduct do
       subject { coc }
 
       it 'returns the version' do
-        expect(subject.version).to match(/\d\.\d/)
+        regex = /\A(\d\.\d|\d\.\d\.\d|longer|shorter)\z/
+        expect(subject.version).to match(regex)
       end
 
       it 'returns the language' do

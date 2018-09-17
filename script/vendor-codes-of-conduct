@@ -9,14 +9,18 @@ def mkdir(dir)
   FileUtils.mkdir_p(dir)
 end
 
-def download_and_write(url, version: '1.0', dir: '', file: 'CODE_OF_CONDUCT.md')
-  content = URI.open(url).read
+def write_with_meta(content, version: '1.0', dir: '', file: 'CODE_OF_CONDUCT.md')
   meta = { 'version' => version }
   toml = TOML::Generator.new(meta).body
   content = ['+++', toml, '+++', content].join("\n")
   path = File.join(dir, 'version', *version.split('.'), file)
   FileUtils.mkdir_p File.dirname(path)
   File.write(path, content)
+end
+
+def download_and_write(url, version: '1.0', dir: '', file: 'CODE_OF_CONDUCT.md')
+  content = URI.open(url).read
+  write_with_meta(content, version: version, dir: dir, file: file)
 end
 
 repo = 'ContributorCovenant/contributor_covenant'
@@ -53,3 +57,17 @@ mkdir(dir)
 
 url = "https://github.com/#{repo}/raw/master/#{file}"
 download_and_write(url, dir: dir, file: file)
+
+dir = 'vendor/geek-feminism'
+file = 'CODE_OF_CONDUCT.md'
+url = 'http://geekfeminism.wikia.com/wiki/Community_anti-harassment/Policy?action=edit'
+
+content = URI.open(url).read
+content = content.split('==Anti-harassment policy text==')[1]
+content = content.split('</textarea').first
+content = content.gsub(/(?:[A-Z]{3,}+ ?)+[A-Z]+/) { |m| "[#{m.tr(' ', '_')}]" }
+versions = content.split('===Longer version===')
+versions = versions.map { |v| v.gsub('===Shorter version===', '').strip }
+
+write_with_meta(versions.first, version: 'shorter', dir: dir, file: file)
+write_with_meta(versions.last, version: 'longer', dir: dir, file: file)

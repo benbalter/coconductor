@@ -9,6 +9,7 @@ Metrics/LineLength:
   Exclude:
     - lib/coconductor/project_files.rb
     - lib/coconductor/commands/*
+    - script/vendor-codes-of-conduct
 
 Metrics/ClassLength:
   Exclude:
@@ -29,4 +30,3 @@ Metrics/AbcSize:
 Metrics/MethodLength:
   Exclude:
     - lib/coconductor/commands/*
-  
