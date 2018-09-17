@@ -72,6 +72,8 @@ Content hash:     627827ddda36b5c42b3a00418d3d7d5b16e5088a
 
 * Contributor Covenant (all official languages and versions)
 * Citizen Code of Conduct (all versions)
+* The No Code of Conduct (latest version)
+* Geek Feminism Code of Conduct (latest long and short form versions)
 
 ### Matching strategy
 
