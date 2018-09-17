@@ -11,8 +11,8 @@ end
 
 def write_with_meta(content, version: '1.0', dir: '', file: 'CODE_OF_CONDUCT.md')
   meta = { 'version' => version }
-  toml = TOML::Generator.new(meta).body
-  content = ['+++', toml, '+++', content].join("\n")
+  toml = TOML::Generator.new(meta).body.strip
+  content = ['+++', toml, '+++', '', content].join("\n")
   path = File.join(dir, 'version', *version.split('.'), file)
   FileUtils.mkdir_p File.dirname(path)
   File.write(path, content)

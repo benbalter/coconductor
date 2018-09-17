@@ -1,7 +1,7 @@
 +++
 version = "2.0"
-
 +++
+
 # Citizen Code of Conduct
 
 ## 1.‭ ‬Purpose

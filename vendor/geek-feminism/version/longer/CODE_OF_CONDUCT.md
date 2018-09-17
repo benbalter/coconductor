@@ -1,7 +1,7 @@
 +++
 version = "longer"
-
 +++
+
 [COMMUNITY_NAME] is dedicated to providing a harassment-free experience for everyone. We do not tolerate harassment of participants in any form.
 
 This code of conduct applies to all [COMMUNITY_NAME] spaces, including [give a list of your spaces, eg "our mailing lists and IRC channel"], both online and off. Anyone who violates this code of conduct may be sanctioned or expelled from these spaces at the discretion of the [RESPONSE_TEAM].
