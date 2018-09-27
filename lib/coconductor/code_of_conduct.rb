@@ -16,6 +16,7 @@ module Coconductor
       # or the latest in the family if only the family is specified
       def find(key_or_family)
         return new(key_or_family) if new(key_or_family).pseudo?
+
         match = all.find { |coc| coc.key == key_or_family }
         match || latest_in_family(key_or_family)
       end
@@ -32,6 +33,7 @@ module Coconductor
           key = path.relative_path_from(vendor_dir)
           matches = KEY_REGEX.match(key.to_path)
           next unless matches
+
           [
             matches['family'], 'version', matches['version'], matches['lang']
           ].compact.join('/')
@@ -104,6 +106,7 @@ module Coconductor
 
     def name
       return @name if defined? @name
+
       @name = name_without_version.dup
       @name << " (#{language.upcase})" unless default_language?
       @name << " v#{version}" if version
@@ -178,6 +181,7 @@ module Coconductor
 
     def filepath
       return @filepath if defined? @filepath
+
       parts = key.split('/')
       parts.pop unless default_language?
       path = File.join(*parts[0...5], filename)
@@ -188,6 +192,7 @@ module Coconductor
     # Raw content of code of conduct file, including TOML front matter
     def raw_content
       return if pseudo?
+
       unless File.exist?(filepath)
         msg = "'#{key}' is not a valid code of conduct key"
         raise Coconductor::InvalidCodeOfConduct, msg

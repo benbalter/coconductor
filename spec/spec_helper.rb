@@ -58,6 +58,7 @@ end
 def fixture_file_hashes(fixture, path = nil)
   files = fixture_files(fixture).map { |f| fixture_file_hash(f) }
   return files unless path
+
   files.select { |f| f[:path].start_with?(path) }
 end
 

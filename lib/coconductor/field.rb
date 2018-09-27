@@ -61,6 +61,7 @@ module Coconductor
     def description
       @description ||= begin
         return parts[:description] if parts && parts[:description] != ''
+
         DESCRIPTIONS[key]
       end
     end

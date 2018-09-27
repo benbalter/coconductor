@@ -11,10 +11,12 @@ module Coconductor
       #  :oid  - the file's OID
       def files
         return @files if defined? @files
+
         @files = files_from_tree(commit.tree)
 
         commit.tree.each_tree do |tree_hash|
           next unless subdir?(tree_hash)
+
           tree = Rugged::Tree.lookup(@repository, tree_hash[:oid])
           @files.concat files_from_tree(tree, tree_hash[:name]) if tree
         end
