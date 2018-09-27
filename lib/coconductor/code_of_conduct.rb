@@ -46,8 +46,9 @@ module Coconductor
       end
 
       def families
-        @families ||= Dir["#{vendor_dir}/*"].map do |dir|
-          File.basename(dir)
+        @families ||= begin
+          families = Dir["#{vendor_dir}/*"].map { |dir| File.basename(dir) }
+          families - ['bundle']
         end
       end
 
