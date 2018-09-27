@@ -190,6 +190,10 @@ RSpec.describe Coconductor::CodeOfConduct do
         expect(subject.content).to be_a(String)
       end
 
+      it 'strips preceeding whitespace' do
+        expect(subject.content).to_not start_with("\n")
+      end
+
       it 'returns the normalized content' do
         expect(subject.content_normalized).to be_a(String)
       end

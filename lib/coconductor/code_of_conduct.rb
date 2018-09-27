@@ -205,7 +205,7 @@ module Coconductor
     end
 
     def parts
-      @parts ||= raw_content.split('+++') if raw_content
+      @parts ||= raw_content.split('+++').map(&:strip) if raw_content
     end
 
     def default_language?
