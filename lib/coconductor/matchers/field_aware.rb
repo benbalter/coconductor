@@ -5,6 +5,7 @@ module Coconductor
 
       def match
         return @match if defined? @match
+
         potential_matches.find do |code_of_conduct|
           file.content_normalized =~ regex_for(code_of_conduct)
         end

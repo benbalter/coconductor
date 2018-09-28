@@ -30,6 +30,7 @@ class CoconductorCLI < Thor
     print_table rows
 
     return unless code_of_conduct_file && (options[:code_of_conduct] || options[:diff])
+
     expected_code_of_conduct = options[:code_of_conduct] || closest_code_of_conduct
     return unless expected_code_of_conduct
 
@@ -42,6 +43,7 @@ class CoconductorCLI < Thor
 
   def closest_code_of_conduct
     return unless code_of_conduct_file
+
     matcher = Coconductor::Matchers::Dice.new(code_of_conduct_file)
     matches = matcher.matches_by_similarity
     matches.first.first.key unless matches.empty?

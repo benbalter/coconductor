@@ -45,8 +45,8 @@ RSpec.describe Coconductor::CodeOfConduct do
         no-code-of-conduct
         citizen-code-of-conduct
         contributor-covenant
-      ]
-      expect(described_class.families).to eql(expected)
+      ].sort
+      expect(described_class.families.sort).to eql(expected)
     end
 
     it 'returns the latest in each family' do
@@ -55,8 +55,8 @@ RSpec.describe Coconductor::CodeOfConduct do
         no-code-of-conduct/version/1/0
         citizen-code-of-conduct/version/2/3
         contributor-covenant/version/1/4
-      ]
-      expect(described_class.latest.map(&:key)).to eql(expected)
+      ].sort
+      expect(described_class.latest.map(&:key).sort).to eql(expected)
     end
 
     it 'returns keys' do
@@ -188,6 +188,10 @@ RSpec.describe Coconductor::CodeOfConduct do
 
       it 'returns the content' do
         expect(subject.content).to be_a(String)
+      end
+
+      it 'strips preceeding whitespace' do
+        expect(subject.content).to_not start_with("\n")
       end
 
       it 'returns the normalized content' do
