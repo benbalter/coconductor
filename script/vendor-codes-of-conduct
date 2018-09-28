@@ -3,6 +3,7 @@
 require 'fileutils'
 require 'open-uri'
 require 'toml'
+require 'reverse_markdown'
 
 def mkdir(dir)
   FileUtils.rm_rf(dir)
@@ -71,3 +72,23 @@ versions = versions.map { |v| v.gsub('===Shorter version===', '').strip }
 
 write_with_meta(versions.first, version: 'shorter', dir: dir, file: file)
 write_with_meta(versions.last, version: 'longer', dir: dir, file: file)
+
+dir = 'vendor/django'
+repo = 'django/djangoproject.com'
+url = "https://raw.githubusercontent.com/#{repo}/master/djangoproject/templates/conduct/index.html"
+
+mkdir(dir)
+
+content = URI.open(url).read
+content = ReverseMarkdown.convert content
+replacements = {
+  'Django Software Foundation' => '[GOVERNING_BODY]',
+  'Django' => '[COMMUNITY_NAME]',
+  'conduct@djangoproject.com' => '[EMAIL_ADDRESS]',
+  "{% url 'conduct_reporting' %}" => '[LINK_TO_REPORTING_GUIDELINES]',
+  "{% url 'conduct_faq' %}" => '[LINK_TO_FAQ]'
+}
+replacements.each { |from, to| content.gsub!(from, to) }
+content.gsub!(/ ?{% .* %} ?/, '')
+
+write_with_meta(content.strip, version: '1.0', dir: dir)

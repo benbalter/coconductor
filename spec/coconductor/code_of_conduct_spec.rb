@@ -1,5 +1,5 @@
 RSpec.describe Coconductor::CodeOfConduct do
-  let(:code_of_conduct_count) { 50 }
+  let(:code_of_conduct_count) { 51 }
 
   context 'class methods' do
     it 'loads all codes of conduct' do
@@ -45,6 +45,7 @@ RSpec.describe Coconductor::CodeOfConduct do
         no-code-of-conduct
         citizen-code-of-conduct
         contributor-covenant
+        django
       ].sort
       expect(described_class.families.sort).to eql(expected)
     end
@@ -55,6 +56,7 @@ RSpec.describe Coconductor::CodeOfConduct do
         no-code-of-conduct/version/1/0
         citizen-code-of-conduct/version/2/3
         contributor-covenant/version/1/4
+        django/version/1/0
       ].sort
       expect(described_class.latest.map(&:key).sort).to eql(expected)
     end

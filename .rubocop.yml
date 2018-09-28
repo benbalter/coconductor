@@ -4,6 +4,7 @@ Style/Documentation:
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
+    - coconductor.gemspec
 
 Metrics/LineLength:
   Exclude:

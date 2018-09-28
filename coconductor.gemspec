@@ -19,8 +19,8 @@ Gem::Specification.new do |spec|
       f.match(%r{^(test|spec|features)/})
     end
   end
-  spec.bindir        = 'exe'
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.bindir        = 'bin'
+  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
   spec.add_dependency 'licensee', '~> 9.9', '>= 9.9.4'
@@ -29,6 +29,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'bundler', '~> 1.16'
   spec.add_development_dependency 'pry', '~> 0.10'
+  spec.add_development_dependency 'reverse_markdown', '~> 1.1'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rubocop', '~> 0.50'
   spec.add_development_dependency 'webmock', '~> 3.1'

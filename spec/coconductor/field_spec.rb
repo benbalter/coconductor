@@ -1,5 +1,5 @@
 RSpec.describe Coconductor::Field do
-  let(:all_field_count) { 9 }
+  let(:all_field_count) { 10 }
   let(:cc_field_cound) { 1 }
   let(:name) { 'SOME_FIELD' }
   let(:description) { 'Some description.' }
