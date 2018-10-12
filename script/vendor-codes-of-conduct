@@ -11,7 +11,11 @@ tar_args = "--include='*/content/version' --strip-components=2 -C #{cc.dir}"
 # Citizen Code of Conduct
 repo = 'stumpsyn/policies'
 filename = 'citizen_code_of_conduct.md'
-vendorer = Coconductor::Vendorer.new('citizen-code-of-conduct', repo: repo, filename: filename)
+vendorer = Coconductor::Vendorer.new('citizen-code-of-conduct',
+    repo: repo,
+    filename: filename,
+    replacements: { 'YOUR CONTACT INFO HERE' => 'YOUR_CONTACT_INFO_HERE' }
+)
 versions = {
   '2.0' => 'd0594789ea324a42e26b495034952b6ce08d9f51',
   '2.1' => 'b7705a4315a5e58fea58ae3d4b1de82bd564ac86',
@@ -44,7 +48,6 @@ url = 'http://geekfeminism.wikia.com/wiki/Community_anti-harassment/Policy?actio
 vendorer = Coconductor::Vendorer.new('geek-feminism', url: url)
 content = vendorer.content.split('==Anti-harassment policy text==')[1]
 content = content.split('</textarea').first
-content = content.gsub(/(?:[A-Z]{3,}+ ?)+[A-Z]+/) { |m| "[#{m.tr(' ', '_')}]" }
 versions = content.split('===Longer version===')
 versions = versions.map { |v| v.gsub('===Shorter version===', '').strip }
 vendorer.write_with_meta(versions.first, version: 'shorter')

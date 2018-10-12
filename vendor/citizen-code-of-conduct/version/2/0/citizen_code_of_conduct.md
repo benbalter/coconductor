@@ -6,7 +6,7 @@ version = "2.0"
 
 ## 1. Purpose
 
-A primary goal of COMMUNITY_NAME is to be inclusive to
+A primary goal of [COMMUNITY_NAME] is to be inclusive to
 the largest number of contributors, with the most varied
 and diverse backgrounds possible. As such, we are committed
 to providing a friendly, safe and welcoming environment for
@@ -18,7 +18,7 @@ This code of conduct outlines our expectations for all
 those who participate in our community, as well as the
 consequences for unacceptable behavior.
 
-We invite all those who participate in COMMUNITY_NAME to
+We invite all those who participate in [COMMUNITY_NAME] to
 help us create safe and positive experiences for everyone.
 
 ## 2. Open [Source/Culture/Tech] Citizenship
@@ -114,7 +114,7 @@ to community business.
 
 ## 9. Contact info
 
-[YOUR CONTACT INFO HERE -- this should be a single
+[YOUR_CONTACT_INFO_HERE -- this should be a single
 person or a small team who can respond to issues
 directly]
 
