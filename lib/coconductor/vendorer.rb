@@ -7,11 +7,11 @@ require 'logger'
 # Used in development to vendor codes of conduct
 module Coconductor
   class Vendorer
-    attr_reader :family, :repo, :replacements
+    attr_reader :family, :repo
     attr_writer :ref
 
-    OPTIONS = %i(filename url repo replacements html source_path)
-    INVALID_CHARS = ["\u202D", "\u202C", "\u200E", "\u200F"]
+    OPTIONS = %i[filename url repo replacements html source_path].freeze
+    INVALID_CHARS = ["\u202D", "\u202C", "\u200E", "\u200F"].freeze
     UPPERCASE_WORD_REGEX = /(?:[A-Z]{3,}+ ?)+[A-Z_]+/
     UNMARKED_FIELD_REGEX = /(?<= |^)#{UPPERCASE_WORD_REGEX}(?= |\.|,)/
 
@@ -103,12 +103,16 @@ module Coconductor
       content = raw_content.dup.gsub(Regexp.union(INVALID_CHARS), '')
       content = ReverseMarkdown.convert content if html?
       replacements.each { |from, to| content.gsub!(from, to) }
+      content = normalize_implicit_fields(content)
+      content.gsub!(/ ?{% .* %} ?/, '')
+      content.squeeze(' ').strip
+    end
+
+    def normalize_implicit_fields(content)
       content.gsub!(/#{UPPERCASE_WORD_REGEX} #{UPPERCASE_WORD_REGEX}/) do |m|
         m.tr(' ', '_')
       end
-      content.gsub!(UNMARKED_FIELD_REGEX) { |m| "[#{m}]" }
-      content.gsub!(/ ?{% .* %} ?/, '')
-      content.squeeze(' ').strip
+      content.gsub(UNMARKED_FIELD_REGEX) { |m| "[#{m}]" }
     end
 
     def html?

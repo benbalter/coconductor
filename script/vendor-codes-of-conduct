@@ -28,16 +28,16 @@ Coconductor::Vendorer.new('no-code-of-conduct', repo: 'domgetter/NCoC').vendor
 
 # Django
 Coconductor::Vendorer.new('django',
-                         repo: 'django/djangoproject.com',
-                         source_path: 'djangoproject/templates/conduct/index.html',
-                         html: true,
-                         replacements: {
-                           'Django Software Foundation' => '[GOVERNING_BODY]',
-                           'Django' => '[COMMUNITY_NAME]',
-                           'conduct@djangoproject.com' => '[EMAIL_ADDRESS]',
-                           "{% url 'conduct_reporting' %}" => '[LINK_TO_REPORTING_GUIDELINES]',
-                           "{% url 'conduct_faq' %}" => '[LINK_TO_FAQ]'
-                         }).vendor
+                          repo: 'django/djangoproject.com',
+                          source_path: 'djangoproject/templates/conduct/index.html',
+                          html: true,
+                          replacements: {
+                            'Django Software Foundation' => '[GOVERNING_BODY]',
+                            'Django' => '[COMMUNITY_NAME]',
+                            'conduct@djangoproject.com' => '[EMAIL_ADDRESS]',
+                            "{% url 'conduct_reporting' %}" => '[LINK_TO_REPORTING_GUIDELINES]',
+                            "{% url 'conduct_faq' %}" => '[LINK_TO_FAQ]'
+                          }).vendor
 
 # Geek Feminism
 url = 'http://geekfeminism.wikia.com/wiki/Community_anti-harassment/Policy?action=edit'
