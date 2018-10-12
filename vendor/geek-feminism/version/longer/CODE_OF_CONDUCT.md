@@ -31,9 +31,9 @@ Harassment includes:
 *Communicating in a ‘tone’ you don’t find congenial
 *Criticizing racist, sexist, cissexist, or otherwise oppressive behavior or assumptions
 ====Reporting====
-If you are being harassed by a member of [COMMUNITY] NAME, notice that someone else is being harassed, or have any other concerns, please contact the [RESPONSE_TEAM] at [email address or other contact point]. If the person who is harassing you is on the team, they will recuse themselves from handling your incident. We will respond as promptly as we can.
+If you are being harassed by a member of [COMMUNITY_NAME], notice that someone else is being harassed, or have any other concerns, please contact the [RESPONSE_TEAM] at [email address or other contact point]. If the person who is harassing you is on the team, they will recuse themselves from handling your incident. We will respond as promptly as we can.
 
-This code of conduct applies to [COMMUNITY_NAME] spaces, but if you are being harassed by a member of [COMMUNITY_NAME] outside our spaces, we still want to know about it. We will take all good-faith reports of harassment by [COMMUNITY_NAME] members, especially [LEADERSHIP] TEAM, seriously. This includes harassment outside our spaces and harassment that took place at any point in time. The abuse team reserves the right to exclude people from [COMMUNITY_NAME] based on their past behavior, including behavior outside [COMMUNITY_NAME] spaces and behavior towards people who are not in [COMMUNITY_NAME].
+This code of conduct applies to [COMMUNITY_NAME] spaces, but if you are being harassed by a member of [COMMUNITY_NAME] outside our spaces, we still want to know about it. We will take all good-faith reports of harassment by [COMMUNITY_NAME] members, especially [LEADERSHIP_TEAM], seriously. This includes harassment outside our spaces and harassment that took place at any point in time. The abuse team reserves the right to exclude people from [COMMUNITY_NAME] based on their past behavior, including behavior outside [COMMUNITY_NAME] spaces and behavior towards people who are not in [COMMUNITY_NAME].
 
 In order to protect volunteers from abuse and burnout, we reserve the right to reject any report we believe to have been made in bad faith. Reports intended to silence legitimate criticism may be deleted without response.
 
