@@ -1,4 +1,4 @@
-require 'coconductor/version'
+require_relative './coconductor/version'
 require 'licensee'
 
 module Coconductor
@@ -7,6 +7,7 @@ module Coconductor
   autoload :Matchers,      'coconductor/matchers'
   autoload :Projects,      'coconductor/projects'
   autoload :ProjectFiles,  'coconductor/project_files'
+  autoload :Vendorer,      'coconductor/vendorer'
 
   CONFIDENCE_THRESHOLD = 90
 
