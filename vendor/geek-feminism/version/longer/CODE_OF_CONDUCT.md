@@ -2,7 +2,7 @@
 version = "longer"
 +++
 
-COMMUNITY [NAME] is dedicated to providing a harassment-free experience for everyone. We do not tolerate harassment of participants in any form.
+[COMMUNITY_NAME] is dedicated to providing a harassment-free experience for everyone. We do not tolerate harassment of participants in any form.
 
 This code of conduct applies to all [COMMUNITY_NAME] spaces, including [give a list of your spaces, eg "our mailing lists and IRC channel"], both online and off. Anyone who violates this code of conduct may be sanctioned or expelled from these spaces at the discretion of the [RESPONSE_TEAM].
 
@@ -25,7 +25,7 @@ Harassment includes:
 *Continued one-on-one communication after requests to cease.
 *Deliberate “outing” of any aspect of a person’s identity without their consent except as necessary to protect vulnerable people from intentional abuse.
 *Publication of non-harassing private communication.
-COMMUNITY [NAME] prioritizes marginalized people’s safety over privileged people’s comfort. [RESPONSE_TEAM] reserves the right not to act on complaints regarding:
+[COMMUNITY_NAME] prioritizes marginalized people’s safety over privileged people’s comfort. [RESPONSE_TEAM] reserves the right not to act on complaints regarding:
 *‘Reverse’ -isms, including ‘reverse racism,’ ‘reverse sexism,’ and ‘cisphobia’
 *Reasonable communication of boundaries, such as “leave me alone,” “go away,” or “I’m not discussing this with you.”
 *Communicating in a ‘tone’ you don’t find congenial

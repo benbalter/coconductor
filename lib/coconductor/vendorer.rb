@@ -12,7 +12,7 @@ module Coconductor
 
     OPTIONS = %i(filename url repo replacements html source_path)
     INVALID_CHARS = ["\u202D", "\u202C", "\u200E", "\u200F"]
-    FIELD_REGEX = /(?<= )(?:[A-Z]{3,}+ ?)+[A-Z_]+(?= |\.)/
+    FIELD_REGEX = /(?<= |^)(?:[A-Z]{3,}+ ?)+[A-Z_]+(?= |\.)/
 
     def initialize(family, options = {})
       @family = family
@@ -100,15 +100,10 @@ module Coconductor
 
     def content_normalized
       content = raw_content.dup.gsub(Regexp.union(INVALID_CHARS), '')
-      puts content.inspect if family =~ /citizen/i
-
       content = ReverseMarkdown.convert content if html?
-
       replacements.each { |from, to| content.gsub!(from, to) }
       content.gsub!(FIELD_REGEX) { |m| "[#{m.tr(' ', '_')}]" }
-
       content.gsub!(/ ?{% .* %} ?/, '')
-
       content.squeeze(' ').strip
     end
 
