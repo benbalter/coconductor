@@ -4,9 +4,13 @@ require_relative '../lib/coconductor'
 
 # Contributor Covenant
 repo = 'ContributorCovenant/contributor_covenant'
-cc = Coconductor::Vendorer.new('contributor-covenant')
-tar_args = "--include='*/content/version' --strip-components=2 -C #{cc.dir}"
+vendorer = Coconductor::Vendorer.new('contributor-covenant', filename: 'code-of-conduct.md')
+tar_args = "--include='*/content/version' --strip-components=2 -C #{vendorer.dir}"
 `curl -L "https://api.github.com/repos/#{repo}/tarball" | tar xf - #{tar_args}`
+Dir["#{vendorer.dir}/version/**/#{vendorer.filename}"].each do |path|
+  vendorer.raw_content = File.read(path)
+  File.write(path, vendorer.content)
+end
 
 # Citizen Code of Conduct
 repo = 'stumpsyn/policies'
