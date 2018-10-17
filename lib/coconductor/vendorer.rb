@@ -24,7 +24,7 @@ module Coconductor
 
       logger.info "Vendoring #{family}"
 
-      #  mkdir
+      mkdir
     end
 
     def dir
