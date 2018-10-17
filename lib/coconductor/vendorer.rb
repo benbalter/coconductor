@@ -98,7 +98,7 @@ module Coconductor
       return @raw_content if defined? @raw_content
 
       logger.info "Retrieving #{url}"
-      @raw_content = URI.open(url).read if url
+      URI.open(url).read if url
     end
 
     def content_normalized
