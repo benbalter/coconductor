@@ -8,7 +8,7 @@ require 'logger'
 module Coconductor
   class Vendorer
     attr_reader :family, :repo
-    attr_writer :ref
+    attr_writer :ref, :raw_content
 
     OPTIONS = %i[filename url repo replacements html source_path].freeze
     INVALID_CHARS = ["\u202D", "\u202C", "\u200E", "\u200F"].freeze
@@ -95,6 +95,8 @@ module Coconductor
     end
 
     def raw_content
+      return @raw_content if defined? @raw_content
+
       logger.info "Retrieving #{url}"
       URI.open(url).read if url
     end
