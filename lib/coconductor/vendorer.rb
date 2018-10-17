@@ -24,7 +24,7 @@ module Coconductor
 
       logger.info "Vendoring #{family}"
 
-    #  mkdir
+      #  mkdir
     end
 
     def dir
@@ -96,6 +96,7 @@ module Coconductor
 
     def raw_content
       return @raw_content if defined? @raw_content
+
       logger.info "Retrieving #{url}"
       @raw_content = URI.open(url).read if url
     end
