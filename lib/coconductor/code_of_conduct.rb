@@ -123,9 +123,6 @@ module Coconductor
       # See https://github.com/stumpsyn/policies/pull/21
       @content ||= if parts.nil?
                      nil
-                   elsif citizen_code_of_conduct?
-                     fields = %w[COMMUNITY_NAME GOVERNING_BODY]
-                     parts.last.gsub(/ (#{Regexp.union(fields)}) /, ' [\1] ')
                    else
                      parts.last
                    end
@@ -155,8 +152,21 @@ module Coconductor
       other? || none?
     end
 
+    # Returns all fields found in the code of conduct
+    #
+    # Each field will have a unique _raw_text_, uniq-ing _identical_ fields
     def fields
       @fields ||= Field.from_code_of_conduct(self)
+    end
+
+    # Returns all fields found in the code of conduct, uniq'd by normalized key
+    #
+    # Where the same field exists twice, preferance will be given to the first
+    # occurance to contain a description
+    def unique_fields
+      @unique_fields ||= begin
+        fields.sort_by { |f| f.description ? 0 : 1 }.uniq(&:key)
+      end
     end
 
     def ==(other)

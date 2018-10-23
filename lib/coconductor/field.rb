@@ -28,7 +28,7 @@ module Coconductor
           new(m[0], name: m[:name], description: m[:description])
         end
 
-        fields.uniq(&:key)
+        fields.uniq(&:raw_text)
       end
 
       # Returns all fields accross all vendored codes of conduct

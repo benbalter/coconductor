@@ -1,6 +1,6 @@
 RSpec.describe Coconductor::Field do
   let(:all_field_count) { 12 }
-  let(:cc_field_cound) { 1 }
+  let(:ccc_field_cound) { 7 }
   let(:name) { 'SOME_FIELD' }
   let(:description) { 'Some description.' }
   let(:raw_text) { "[#{name}: #{description}]" }
@@ -13,13 +13,23 @@ RSpec.describe Coconductor::Field do
     end
 
     context 'from a code of conduct' do
-      let(:family) { 'contributor-covenant' }
+      let(:family) { 'citizen-code-of-conduct' }
       let(:coc) { Coconductor::CodeOfConduct.find(family) }
       let(:fields) { described_class.from_code_of_conduct(coc) }
 
       it 'pulls from a code of conduct' do
         expect(fields).to all(be_a(described_class))
-        expect(fields.count).to eql(cc_field_cound)
+        expect(fields.count).to eql(ccc_field_cound)
+      end
+
+      it 'parses fields' do
+        expect(coc.fields.count).to eql(ccc_field_cound)
+      end
+
+      it 'parses unique fields' do
+        expect(coc.unique_fields.count).to eql(ccc_field_cound - 1)
+        contact = coc.unique_fields.find { |f| f.key == 'contact_info' }
+        expect(contact.description).to match('a small team')
       end
     end
   end
