@@ -3,6 +3,8 @@ require 'open-uri'
 require 'toml'
 require 'reverse_markdown'
 require 'logger'
+require 'wikicloth'
+require 'twitter-text'
 
 # Used in development to vendor codes of conduct
 module Coconductor
@@ -10,7 +12,7 @@ module Coconductor
     attr_reader :family, :repo
     attr_writer :ref, :raw_content
 
-    OPTIONS = %i[filename url repo replacements html source_path].freeze
+    OPTIONS = %i[filename url repo replacements html source_path wiki].freeze
     INVALID_CHARS = ["\u202D", "\u202C", "\u200E", "\u200F"].freeze
     UPPERCASE_WORD_REGEX = /(?:[A-Z]{3,}+ ?)+[A-Z_]+/
     UNMARKED_FIELD_REGEX = /(?<= |^)#{UPPERCASE_WORD_REGEX}(?= |\.|,)/
@@ -103,7 +105,7 @@ module Coconductor
 
     def content_normalized
       content = raw_content.dup.gsub(Regexp.union(INVALID_CHARS), '')
-      content = ReverseMarkdown.convert content if html?
+      content = to_markdown(content)
       replacements.each { |from, to| content.gsub!(from, to) }
       content = normalize_implicit_fields(content)
       content.gsub!(/ ?{% .* %} ?/, '')
@@ -117,8 +119,19 @@ module Coconductor
       content.gsub(UNMARKED_FIELD_REGEX) { |m| "[#{m}]" }
     end
 
+    def to_markdown(content)
+      options = { data: content, noedit: true, fast: false }
+      content = WikiCloth::Parser.new(options).to_html if wiki?
+      content = ReverseMarkdown.convert content if html? || wiki?
+      content
+    end
+
     def html?
       @html == true
+    end
+
+    def wiki?
+      @wiki == true
     end
   end
 end

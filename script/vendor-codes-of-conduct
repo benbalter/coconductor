@@ -47,11 +47,14 @@ Coconductor::Vendorer.new('django',
                           }).vendor
 
 # Geek Feminism
-url = 'http://geekfeminism.wikia.com/wiki/Community_anti-harassment/Policy?action=edit'
-vendorer = Coconductor::Vendorer.new('geek-feminism', url: url)
-content = vendorer.content.split('==Anti-harassment policy text==')[1]
-content = content.split('</textarea').first
-versions = content.split('===Longer version===')
-versions = versions.map { |v| v.gsub('===Shorter version===', '').strip }
+url = 'http://geekfeminism.wikia.com/wiki/Community_anti-harassment/Policy?action=raw'
+replacements = {
+  '[give]' => '[LIST_OF_SPACES - e.g. "our mailing lists and IRC channel"]',
+  '[list,]' => '[LIST_OF_SPACES - e.g. "our mailing lists and IRC channel"]'
+}
+vendorer = Coconductor::Vendorer.new('geek-feminism', url: url, wiki: true, replacements: replacements)
+content = vendorer.content.split('## Anti-harassment policy text')[1]
+versions = content.split('### Longer version')
+versions = versions.map { |v| v.gsub('### Shorter version', '').strip }
 vendorer.write_with_meta(versions.first, version: 'shorter')
 vendorer.write_with_meta(versions.last, version: 'longer')
