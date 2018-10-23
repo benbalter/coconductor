@@ -58,3 +58,21 @@ versions = content.split('### Longer version')
 versions = versions.map { |v| v.gsub('### Shorter version', '').strip }
 vendorer.write_with_meta(versions.first, version: 'shorter')
 vendorer.write_with_meta(versions.last, version: 'longer')
+
+# Go
+replacements = {
+  '(“Gophers”)' => '',
+  'Gopher' => 'Go',
+  ' Go ' => ' [COMMUNITY_NAME] ',
+  'conduct@golang.org' => '[EMAIL_ADDRESS]',
+  'Cassandra Salisbury, ' => '',
+  'the Open Source Programs Office' => '[GOVERNING_BODY]',
+  'the Google Open Source Programs Office' => '[GOVERNING_BODY]',
+  ' and the Google Open Source Strategy team' => '',
+  'opensource@google.com' => '[GOVERNING_BODY_EMAIL_ADDRESS]'
+}
+Coconductor::Vendorer.new('go',
+                          repo: 'golang/go',
+                          source_path: 'doc/conduct.html',
+                          html: true,
+                          replacements: replacements).vendor
