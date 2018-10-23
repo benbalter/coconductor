@@ -31,6 +31,8 @@ end
 Coconductor::Vendorer.new('no-code-of-conduct', repo: 'domgetter/NCoC').vendor
 
 # Django
+reporting_link = "[Reporting Guidelines]({% url 'conduct_reporting' %})"
+faq_link = "[the FAQ]({% url 'conduct_faq' %})"
 Coconductor::Vendorer.new('django',
                           repo: 'django/djangoproject.com',
                           source_path: 'djangoproject/templates/conduct/index.html',
@@ -39,8 +41,9 @@ Coconductor::Vendorer.new('django',
                             'Django Software Foundation' => '[GOVERNING_BODY]',
                             'Django' => '[COMMUNITY_NAME]',
                             'conduct@djangoproject.com' => '[EMAIL_ADDRESS]',
-                            "{% url 'conduct_reporting' %}" => '[LINK_TO_REPORTING_GUIDELINES]',
-                            "{% url 'conduct_faq' %}" => '[LINK_TO_FAQ]'
+                            reporting_link => '[LINK_TO_REPORTING_GUIDELINES]',
+                            faq_link => '[LINK_TO_FAQ]',
+                            /([a-z])\[/i => '\1 ['
                           }).vendor
 
 # Geek Feminism
