@@ -1,5 +1,5 @@
 RSpec.describe Coconductor::CodeOfConduct do
-  let(:code_of_conduct_count) { 52 }
+  let(:code_of_conduct_count) { 53 }
 
   context 'class methods' do
     it 'loads all codes of conduct' do

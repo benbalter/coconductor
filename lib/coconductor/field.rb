@@ -40,7 +40,7 @@ module Coconductor
     def initialize(raw_text, name: nil, description: nil)
       @raw_text = raw_text
       @name = name
-      @description = description
+      @description = description if description && description != ''
     end
 
     # The unformatted field name as found in the code of conduct text
@@ -60,7 +60,9 @@ module Coconductor
 
     def description
       @description ||= begin
-        return parts[:description] if parts && parts[:description] != ''
+        if parts && parts[:description] && parts[:description] != ''
+          return parts[:description]
+        end
 
         DESCRIPTIONS[key]
       end

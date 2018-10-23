@@ -3,7 +3,7 @@ RSpec.describe Coconductor do
     Coconductor::CodeOfConduct.find('contributor-covenant/version/1/4')
   end
   let(:path) { project_root }
-  let(:code_of_conduct_count) { 52 }
+  let(:code_of_conduct_count) { 53 }
 
   it 'has a version number' do
     expect(described_class::VERSION).not_to be nil

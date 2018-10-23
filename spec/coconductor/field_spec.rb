@@ -48,6 +48,15 @@ RSpec.describe Coconductor::Field do
     end
   end
 
+  context 'hard-coded description' do
+    let(:name) { 'LINK_TO_POLICY' }
+    let(:raw_text) { "[#{name}]" }
+
+    it 'pulls the description' do
+      expect(subject.description).to match('An optional link to guidelines')
+    end
+  end
+
   it 'returns the label' do
     expect(subject.label).to eql('Some field')
   end
