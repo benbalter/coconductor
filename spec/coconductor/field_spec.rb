@@ -51,10 +51,10 @@ RSpec.describe Coconductor::Field do
   end
 
   context 'when passed a description' do
-    subject { described_class.new(raw_text, description: 'description...') }
+    subject { described_class.new(raw_text, description: 'Description...') }
 
     it 'store the name' do
-      expect(subject.description).to eql('description...')
+      expect(subject.description).to eql('Description...')
     end
   end
 
@@ -100,11 +100,11 @@ RSpec.describe Coconductor::Field do
       },
       '[SOME_FIELD: description]' => {
         name: 'SOME_FIELD', label: 'Some field',
-        key: 'some_field', description: 'description'
+        key: 'some_field', description: 'Description'
       },
       '[SOME FIELD description]' => {
         name: 'SOME FIELD', label: 'Some field',
-        key: 'some_field', description: 'description'
+        key: 'some_field', description: 'Description'
       },
       '[YOUR CONTACT INFO]' => {
         name: 'YOUR CONTACT INFO', label: 'Contact info',
@@ -124,7 +124,7 @@ RSpec.describe Coconductor::Field do
       },
       '[FIELD -- description]' => {
         name: 'FIELD', label: 'Field',
-        key: 'field', description: 'description'
+        key: 'field', description: 'Description'
       }
     }
 

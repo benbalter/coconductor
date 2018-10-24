@@ -61,7 +61,7 @@ module Coconductor
     def description
       @description ||= begin
         if parts && parts[:description] && parts[:description] != ''
-          return parts[:description]
+          return parts[:description].capitalize
         end
 
         DESCRIPTIONS[key]
