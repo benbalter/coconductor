@@ -51,7 +51,7 @@ RSpec.describe Coconductor::Field do
   end
 
   context 'when passed a description' do
-    subject { described_class.new(raw_text, description: 'Description...') }
+    subject { described_class.new(raw_text, description: 'description...') }
 
     it 'store the name' do
       expect(subject.description).to eql('Description...')

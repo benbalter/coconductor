@@ -40,7 +40,7 @@ module Coconductor
     def initialize(raw_text, name: nil, description: nil)
       @raw_text = raw_text
       @name = name
-      @description = description if description && description != ''
+      @description = description.capitalize if description && description != ''
     end
 
     # The unformatted field name as found in the code of conduct text
