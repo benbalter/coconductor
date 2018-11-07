@@ -14,8 +14,8 @@ module Coconductor
 
     OPTIONS = %i[filename url repo replacements html source_path wiki].freeze
     INVALID_CHARS = ["\u202D", "\u202C", "\u200E", "\u200F"].freeze
-    UPPERCASE_WORD_REGEX = /(?:[A-Z]{3,}+ ?)+[A-Z_]+/
-    UNMARKED_FIELD_REGEX = /(?<= |^)#{UPPERCASE_WORD_REGEX}(?= |\.|,)/
+    UPPERCASE_WORD_REGEX = /(?:[A-Z]{3,}+ ?)+[A-Z_]+/.freeze
+    UNMARKED_FIELD_REGEX = /(?<= |^)#{UPPERCASE_WORD_REGEX}(?= |\.|,)/.freeze
 
     def initialize(family, options = {})
       @family = family

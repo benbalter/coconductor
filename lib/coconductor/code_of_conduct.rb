@@ -70,7 +70,7 @@ module Coconductor
       /version
       /(?<version>(?<major>\d)/(?<minor>\d)(/(?<patch>\d))?|(longer|shorter))
       /#{Coconductor::ProjectFiles::CodeOfConductFile::FILENAME_REGEX}
-    }ix
+    }ix.freeze
     DEFAULT_LANGUAGE = 'en'.freeze
 
     attr_reader :key

@@ -18,7 +18,7 @@ module Coconductor
       private
 
       FIELD_PLACEHOLDER = 'COCONDUCTOR_FIELD_COCONDUCTOR'.freeze
-      FIELD_PLACEHOLDER_REGEX = /coconductor\\ field\\ coconductor/
+      FIELD_PLACEHOLDER_REGEX = /coconductor\\ field\\ coconductor/.freeze
 
       def regex_for(code_of_conduct)
         coc = code_of_conduct.dup
