@@ -130,7 +130,7 @@ module Coconductor
     alias body content
 
     def inspect
-      "#<Licensee::CodeOfConduct key=#{key}>"
+      "#<Coconductor::CodeOfConduct key=#{key}>"
     end
 
     def family
