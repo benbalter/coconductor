@@ -37,7 +37,7 @@ module Coconductor
           [
             matches['family'], 'version', matches['version'], matches['lang']
           ].compact.join('/')
-        end.compact
+        end.compact.sort
       end
 
       def latest_in_family(family, language: DEFAULT_LANGUAGE)
@@ -50,7 +50,7 @@ module Coconductor
       def families
         @families ||= begin
           families = Dir["#{vendor_dir}/*"].map { |dir| File.basename(dir) }
-          families - ['bundle']
+          (families - ['bundle']).sort
         end
       end
 
