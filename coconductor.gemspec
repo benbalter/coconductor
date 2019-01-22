@@ -32,7 +32,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'reverse_markdown', '~> 1.1'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rubocop', '~> 0.50'
-  spec.add_development_dependency 'twitter-text', '< 2.0'
+  spec.add_development_dependency 'twitter-text', '< 4.0'
   spec.add_development_dependency 'webmock', '~> 3.1'
   spec.add_development_dependency 'wikicloth', '~> 0.8'
 end
