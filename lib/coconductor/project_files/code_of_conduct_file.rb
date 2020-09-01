@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Coconductor
   module ProjectFiles
     class CodeOfConductFile < Coconductor::ProjectFiles::ProjectFile
@@ -11,7 +13,7 @@ module Coconductor
       FILENAME_REGEX = /#{BASENAME_REGEX}#{LANG_REGEX}#{EXT_REGEX}?/i.freeze
 
       def self.name_score(filename)
-        filename =~ /\A#{FILENAME_REGEX}/ ? 1.0 : 0.0
+        /\A#{FILENAME_REGEX}/.match?(filename) ? 1.0 : 0.0
       end
 
       def possible_matchers

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'tmpdir'
 
 class CoconductorCLI < Thor
@@ -39,20 +41,18 @@ class CoconductorCLI < Thor
   private
 
   def code_of_conduct_to_diff
-    if options[:code_of_conduct_to_diff]
-      return options[:code_of_conduct_to_diff]
-    end
+    return options[:code_of_conduct_to_diff] if options[:code_of_conduct_to_diff]
 
     return project.code_of_conduct_file if remote?
 
     @code_of_conduct_to_diff ||= begin
-      if STDIN.tty?
+      if $stdin.tty?
         error 'You must pipe the file contents to the command via STDIN'
         exit 1
       end
 
       filename = 'CODE_OF_CONDUCT.txt'
-      Coconductor::ProjectFiles::CodeOfConductFile.new(STDIN.read, filename)
+      Coconductor::ProjectFiles::CodeOfConductFile.new($stdin.read, filename)
     end
   end
 

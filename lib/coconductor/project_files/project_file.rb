@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Coconductor
   module ProjectFiles
     class ProjectFile < Licensee::ProjectFiles::ProjectFile

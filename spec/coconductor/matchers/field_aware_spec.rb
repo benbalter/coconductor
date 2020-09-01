@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Coconductor::Matchers::FieldAware do
   let(:filename) { 'CODE_OF_CONDUCT.txt' }
   let(:file) do
@@ -17,7 +19,7 @@ RSpec.describe Coconductor::Matchers::FieldAware do
       let(:content) { code_of_conduct.content }
 
       it 'matches itself' do
-        skip '/shrug' if ['fa-ir', 'hi'].include? code_of_conduct.language
+        skip '/shrug' if %w[fa-ir hi].include? code_of_conduct.language
         expect(file.match).to eql(code_of_conduct)
       end
 

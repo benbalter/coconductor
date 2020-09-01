@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 [
   Coconductor::Projects::FSProject,
   Coconductor::Projects::GitProject,
@@ -7,12 +9,12 @@
     let(:user) { '_coconductor_test_fixture' }
 
     context "a #{project_type} project" do
+      subject { described_class.new(path) }
+
       let(:path) { fixture_path(fixture) }
       let(:cc_1_4) do
         Coconductor::CodeOfConduct.find('contributor-covenant/version/1/4')
       end
-
-      subject { described_class.new(path) }
 
       if described_class == Coconductor::Projects::GitProject
         before { git_init(path) }
@@ -56,7 +58,7 @@
         end
       end
 
-      context '.github folder' do
+      describe '.github folder' do
         let(:fixture) { 'dot-github-folder' }
 
         it 'returns the code of conduct' do

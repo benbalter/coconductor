@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 RSpec.describe Coconductor::ProjectFiles::CodeOfConductFile do
+  subject { described_class.new(content, filename) }
+
   let(:filename) { 'CODE_OF_CONDUCT.txt' }
   let(:cc_1_4) do
     Coconductor::CodeOfConduct.find('contributor-covenant/version/1/4')
   end
   let(:content) { cc_1_4.content }
-
-  subject { described_class.new(content, filename) }
 
   context 'filenames' do
     [
@@ -19,7 +21,7 @@ RSpec.describe Coconductor::ProjectFiles::CodeOfConductFile do
     ].each do |filename|
       context "a #{filename} file" do
         it 'matches' do
-          expect(described_class.name_score(filename)).to eql(1.0)
+          expect(described_class.name_score(filename)).to be(1.0)
         end
       end
     end
@@ -30,7 +32,7 @@ RSpec.describe Coconductor::ProjectFiles::CodeOfConductFile do
           let(:filename) { File.basename(path) }
 
           it 'matches' do
-            expect(described_class.name_score(filename)).to eql(1.0)
+            expect(described_class.name_score(filename)).to be(1.0)
           end
         end
       end

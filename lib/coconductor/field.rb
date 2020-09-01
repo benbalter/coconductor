@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Coconductor
   # Represents a fillable field in a code of conduct
   class Field
@@ -18,7 +20,7 @@ module Coconductor
       # Returns an array of Fields for the given code of conduct
       def from_code_of_conduct(code_of_conduct)
         matches = []
-        return [] unless code_of_conduct && code_of_conduct.content
+        return [] unless code_of_conduct&.content
 
         code_of_conduct.content.scan(REGEX) do |_m|
           matches << Regexp.last_match
@@ -60,9 +62,7 @@ module Coconductor
 
     def description
       @description ||= begin
-        if parts && parts[:description] && parts[:description] != ''
-          return parts[:description].capitalize
-        end
+        return parts[:description].capitalize if parts && parts[:description] && parts[:description] != ''
 
         DESCRIPTIONS[key]
       end

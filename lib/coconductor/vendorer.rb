@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'fileutils'
 require 'open-uri'
 require 'toml'
@@ -69,7 +71,7 @@ module Coconductor
     private
 
     def logger
-      @logger ||= Logger.new(STDOUT)
+      @logger ||= Logger.new($stdout)
     end
 
     def vendor_dir

@@ -1,4 +1,8 @@
+# frozen_string_literal: true
+
 RSpec.describe Coconductor::Matchers::Dice do
+  subject { described_class.new(file) }
+
   let(:filename) { 'CODE_OF_CONDUCT.txt' }
   let(:cc_1_4) do
     Coconductor::CodeOfConduct.find('contributor-covenant/version/1/4')
@@ -7,8 +11,6 @@ RSpec.describe Coconductor::Matchers::Dice do
   let(:file) do
     Coconductor::ProjectFiles::CodeOfConductFile.new(content, filename)
   end
-
-  subject { described_class.new(file) }
 
   it 'stores the file' do
     expect(subject.file).to eql(file)
@@ -19,18 +21,18 @@ RSpec.describe Coconductor::Matchers::Dice do
   end
 
   it 'is confident' do
-    expect(subject.confidence).to eql(100.0)
+    expect(subject.confidence).to be(100.0)
   end
 
   context 'with words added' do
-    let(:content) { cc_1_4.content + 'foo' }
+    let(:content) { "#{cc_1_4.content}foo" }
 
     it 'matches' do
       expect(subject.match).to eql(cc_1_4)
     end
 
     it 'is confident' do
-      expect(subject.confidence).to eql(99.59349593495935)
+      expect(subject.confidence).to be(99.59349593495935)
     end
   end
 
@@ -42,7 +44,7 @@ RSpec.describe Coconductor::Matchers::Dice do
     end
 
     it "isn't confident" do
-      expect(subject.confidence).to eql(0)
+      expect(subject.confidence).to be(0)
     end
   end
 end

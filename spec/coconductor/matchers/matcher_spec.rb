@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MatcherSpecHelper
   include Coconductor::Matchers::Matcher
 end

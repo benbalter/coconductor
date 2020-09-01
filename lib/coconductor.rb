@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative './coconductor/version'
 require 'licensee'
 
@@ -23,7 +25,7 @@ module Coconductor
     end
 
     def project(path, **args)
-      if path =~ %r{\Ahttps://github.com}
+      if %r{\Ahttps://github.com}.match?(path)
         Coconductor::Projects::GitHubProject.new(path, args)
       else
         Coconductor::Projects::GitProject.new(path, args)

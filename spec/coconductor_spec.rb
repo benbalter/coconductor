@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 RSpec.describe Coconductor do
   let(:cc_1_4) do
     Coconductor::CodeOfConduct.find('contributor-covenant/version/1/4')
   end
   let(:path) { project_root }
-  let(:code_of_conduct_count) { 54 }
+  let(:code_of_conduct_count) { 65 }
 
   it 'has a version number' do
     expect(described_class::VERSION).not_to be nil
@@ -25,17 +27,18 @@ RSpec.describe Coconductor do
     expect(project.code_of_conduct).to eql(cc_1_4)
   end
 
-  context '#confidence_threshold' do
+  describe '#confidence_threshold' do
     it 'returns the confidence threshold' do
-      expect(subject.confidence_threshold).to eql(90)
+      expect(subject.confidence_threshold).to be(90)
     end
 
     context 'user overridden' do
       before { described_class.confidence_threshold = 50 }
+
       after { described_class.confidence_threshold = nil }
 
       it 'lets the user override the confidence threshold' do
-        expect(described_class.confidence_threshold).to eql(50)
+        expect(described_class.confidence_threshold).to be(50)
       end
     end
   end

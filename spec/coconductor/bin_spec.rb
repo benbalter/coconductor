@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'open3'
 
 RSpec.describe 'command line invocation' do
@@ -14,7 +16,7 @@ RSpec.describe 'command line invocation' do
   let(:status) { output[2] }
 
   it 'Returns a zero exit code' do
-    expect(status.exitstatus).to eql(0)
+    expect(status.exitstatus).to be(0)
   end
 
   it 'returns the help text' do

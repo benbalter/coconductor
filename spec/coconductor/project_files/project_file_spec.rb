@@ -1,4 +1,8 @@
+# frozen_string_literal: true
+
 RSpec.describe Coconductor::ProjectFiles::ProjectFile do
+  subject { described_class.new(content, metadata) }
+
   let(:filename) { 'CODE_OF_CONDUCT.txt' }
   let(:cc_1_4) do
     Coconductor::CodeOfConduct.find('contributor-covenant/version/1/4')
@@ -7,13 +11,12 @@ RSpec.describe Coconductor::ProjectFiles::ProjectFile do
   let(:possible_matchers) { [Coconductor::Matchers::Exact] }
   let(:metadata) { { name: filename } }
 
-  subject { described_class.new(content, metadata) }
-
   before do
     allow(subject).to receive(:possible_matchers).and_return(possible_matchers)
   end
 
   before { allow(subject).to receive(:length).and_return(cc_1_4.length) }
+
   before { allow(subject).to receive(:wordset).and_return(cc_1_4.wordset) }
 
   it 'stores the content' do
@@ -29,7 +32,7 @@ RSpec.describe Coconductor::ProjectFiles::ProjectFile do
   end
 
   it 'returns the confidence' do
-    expect(subject.confidence).to eql(100)
+    expect(subject.confidence).to be(100)
   end
 
   it 'returns the code of conduct' do
@@ -67,7 +70,9 @@ RSpec.describe Coconductor::ProjectFiles::ProjectFile do
   context 'an unknown code of conduct' do
     let(:content) { 'something else' }
     let(:other) { Coconductor::CodeOfConduct.find('other') }
+
     before { allow(subject).to receive(:length).and_return(content.length) }
+
     before do
       allow(subject).to receive(:wordset).and_return(content.split(' ').to_set)
     end

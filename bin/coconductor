@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require_relative '../lib/coconductor'
 require 'thor'
@@ -38,6 +39,6 @@ class CoconductorCLI < Thor
 end
 
 commands_dir = File.expand_path '../lib/coconductor/commands/', __dir__
-Dir["#{commands_dir}/*.rb"].each { |c| require(c) }
+Dir["#{commands_dir}/*.rb"].sort.each { |c| require(c) }
 
 CoconductorCLI.start(ARGV)

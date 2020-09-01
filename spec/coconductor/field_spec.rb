@@ -1,10 +1,13 @@
+# frozen_string_literal: true
+
 RSpec.describe Coconductor::Field do
-  let(:all_field_count) { 12 }
+  subject { described_class.new(raw_text) }
+
+  let(:all_field_count) { 13 }
   let(:ccc_field_cound) { 7 }
   let(:name) { 'SOME_FIELD' }
   let(:description) { 'Some description.' }
   let(:raw_text) { "[#{name}: #{description}]" }
-  subject { described_class.new(raw_text) }
 
   context 'class methods' do
     it 'returns all fields' do

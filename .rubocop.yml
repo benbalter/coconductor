@@ -1,3 +1,12 @@
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-performance
+  - rubocop-rspec
+
+AllCops:
+  NewCops: enable
+
 Style/Documentation:
   Enabled: false
 
@@ -6,7 +15,7 @@ Metrics/BlockLength:
     - spec/**/*
     - coconductor.gemspec
 
-Metrics/LineLength:
+Layout/LineLength:
   Exclude:
     - lib/coconductor/project_files.rb
     - lib/coconductor/commands/*

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'toml'
 
 module Coconductor
@@ -71,16 +73,17 @@ module Coconductor
       /(?<version>(?<major>\d)/(?<minor>\d)(/(?<patch>\d))?|(longer|shorter))
       /#{Coconductor::ProjectFiles::CodeOfConductFile::FILENAME_REGEX}
     }ix.freeze
-    DEFAULT_LANGUAGE = 'en'.freeze
+    DEFAULT_LANGUAGE = 'en'
 
     attr_reader :key
     attr_writer :content
+
     include Licensee::ContentHelper
 
     # Define dynamic predicate helpers to determine if a code of conduct is a
     # member of a given family, e.g., code_of_conduct.contributor_covenant?
     CodeOfConduct.families.each do |f|
-      define_method(f.tr('-', '_') + '?') { family == f }
+      define_method("#{f.tr('-', '_')}?") { family == f }
     end
 
     def initialize(key)
@@ -96,7 +99,7 @@ module Coconductor
         parts = key.split('/')
         if pseudo?
           nil
-        elsif parts.last =~ /^[a-z-]{2,5}$/
+        elsif /^[a-z-]{2,5}$/.match?(parts.last)
           parts.last
         else
           DEFAULT_LANGUAGE
@@ -177,16 +180,18 @@ module Coconductor
     private
 
     def filename
-      filename = if contributor_covenant?
+      filename = if contributor_covenant? && key.include?('/version/1/')
                    'code-of-conduct'
+                 elsif contributor_covenant? && key.include?('/version/2/')
+                   'code_of_conduct'
                  elsif citizen_code_of_conduct?
                    'citizen_code_of_conduct'
                  else
                    'CODE_OF_CONDUCT'
                  end
 
-      filename << '.' + language unless default_language?
-      filename << '.md'
+      filename += ".#{language}" unless default_language?
+      "#{filename}.md"
     end
 
     def filepath

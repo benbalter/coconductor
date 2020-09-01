@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 RSpec.describe Coconductor::CodeOfConduct do
-  let(:code_of_conduct_count) { 54 }
+  let(:code_of_conduct_count) { 65 }
 
   context 'class methods' do
     it 'loads all codes of conduct' do
@@ -28,7 +30,7 @@ RSpec.describe Coconductor::CodeOfConduct do
         found = described_class.find('contributor-covenant')
         expect(found).to be_a(described_class)
         expect(found.family).to eql('contributor-covenant')
-        expect(found.version).to eql('1.4')
+        expect(found.version).to eql('2.0')
       end
     end
 
@@ -56,7 +58,7 @@ RSpec.describe Coconductor::CodeOfConduct do
         geek-feminism/version/longer
         no-code-of-conduct/version/1/0
         citizen-code-of-conduct/version/2/3
-        contributor-covenant/version/1/4
+        contributor-covenant/version/2/0
         django/version/1/0
         go/version/1/0
       ].sort
@@ -76,34 +78,34 @@ RSpec.describe Coconductor::CodeOfConduct do
   it 'knows a contributor covenant' do
     coc = described_class.find('contributor-covenant/version/1/4')
     expect(coc).to be_contributor_covenant
-    expect(coc).to_not be_citizen_code_of_conduct
-    expect(coc).to_not be_no_code_of_conduct
+    expect(coc).not_to be_citizen_code_of_conduct
+    expect(coc).not_to be_no_code_of_conduct
   end
 
   it 'knows a contributor covenant' do
     coc = described_class.find('citizen-code-of-conduct/version/2/3')
     expect(coc).to be_citizen_code_of_conduct
-    expect(coc).to_not be_contributor_covenant
-    expect(coc).to_not be_no_code_of_conduct
+    expect(coc).not_to be_contributor_covenant
+    expect(coc).not_to be_no_code_of_conduct
   end
 
   it 'knows a no code of conduct' do
     coc = described_class.find('no-code-of-conduct/version/1/0')
     expect(coc).to be_no_code_of_conduct
-    expect(coc).to_not be_citizen_code_of_conduct
-    expect(coc).to_not be_contributor_covenant
+    expect(coc).not_to be_citizen_code_of_conduct
+    expect(coc).not_to be_contributor_covenant
   end
 
   it 'corrects COMMUNITY_NAME in contributor_covenant' do
     coc = described_class.find('citizen-code-of-conduct')
     expect(coc.content).to include(' [COMMUNITY_NAME] ')
-    expect(coc.content).to_not include(' COMMUNITY_NAME ')
+    expect(coc.content).not_to include(' COMMUNITY_NAME ')
   end
 
   it 'corrects GOVERNING_BODY in contributor_covenant' do
     coc = described_class.find('citizen-code-of-conduct')
     expect(coc.content).to include(' [GOVERNING_BODY] ')
-    expect(coc.content).to_not include(' GOVERNING_BODY ')
+    expect(coc.content).not_to include(' GOVERNING_BODY ')
   end
 
   it 'compares keys' do
@@ -115,8 +117,8 @@ RSpec.describe Coconductor::CodeOfConduct do
     expect(contributor).to eql(contributor)
     expect(other).to eql(other2)
 
-    expect(contributor).to_not eql(citizen)
-    expect(contributor).to_not eql(other)
+    expect(contributor).not_to eql(citizen)
+    expect(contributor).not_to eql(other)
   end
 
   %w[other none].each do |type|
@@ -124,7 +126,7 @@ RSpec.describe Coconductor::CodeOfConduct do
       subject { described_class.find(type) }
 
       it "can find the #{type} code of conduct" do
-        expect(subject).to_not be_nil
+        expect(subject).not_to be_nil
       end
 
       it 'returns the key' do
@@ -167,7 +169,7 @@ RSpec.describe Coconductor::CodeOfConduct do
     end
   end
 
-  Coconductor::CodeOfConduct.all.each do |coc|
+  described_class.all.each do |coc|
     context coc.name do
       subject { coc }
 
@@ -177,9 +179,7 @@ RSpec.describe Coconductor::CodeOfConduct do
       end
 
       it 'returns the language' do
-        unless subject.key.split('/').last =~ /\d/
-          expect(subject.language).to match(/[a-z-]{2,5}/)
-        end
+        expect(subject.language).to match(/[a-z-]{2,5}/) unless /\d/.match?(subject.key.split('/').last)
       end
 
       it 'returns the name without version' do
@@ -195,7 +195,7 @@ RSpec.describe Coconductor::CodeOfConduct do
       end
 
       it 'strips preceeding whitespace' do
-        expect(subject.content).to_not start_with("\n")
+        expect(subject.content).not_to start_with("\n")
       end
 
       it 'returns the normalized content' do

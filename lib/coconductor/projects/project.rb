@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module Coconductor
   module Projects
     module Project
       DIRS = ['./', './docs/', './.github/'].freeze
 
       def code_of_conduct
-        code_of_conduct_file.code_of_conduct if code_of_conduct_file
+        code_of_conduct_file&.code_of_conduct
       end
 
       def code_of_conduct_file

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Coconductor
   module Projects
     autoload :Project, 'coconductor/projects/project'

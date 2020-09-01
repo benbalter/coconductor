@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe 'Vendored codes of conduct' do
   let(:filename) { 'CODE_OF_CONDUCT.txt' }
   let(:code_of_conduct_file) do
@@ -9,7 +11,7 @@ RSpec.describe 'Vendored codes of conduct' do
       let(:content) { code_of_conduct.content }
 
       it 'detects the code of conduct' do
-        skip '/shrug' if ['fa-ir', 'hi'].include? code_of_conduct.language
+        skip '/shrug' if %w[fa-ir hi].include? code_of_conduct.language
         expect(code_of_conduct_file.code_of_conduct).to eql(code_of_conduct)
       end
     end

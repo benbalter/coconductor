@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CoconductorCLI < Thor
   desc 'detect [PATH]', 'Detect the code of conduct of the given project', default: Dir.pwd
   option :confidence, type: :numeric, default: Coconductor.confidence_threshold, desc: 'Confidence threshold'
@@ -57,7 +59,7 @@ class CoconductorCLI < Thor
     when :confidence
       Licensee::ContentHelper.format_percent(value)
     when :method
-      value.to_s.tr('_', ' ').capitalize + ':'
+      "#{value.to_s.tr('_', ' ').capitalize}:"
     else
       value
     end

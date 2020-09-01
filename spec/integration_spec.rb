@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe 'integration test' do
   [
     Coconductor::Projects::FSProject,
@@ -5,6 +7,8 @@ RSpec.describe 'integration test' do
     Coconductor::Projects::GitHubProject
   ].each do |project_type|
     context "with a #{project_type} project" do
+      subject { project_type.new(project_path, arguments) }
+
       let(:user) { '_coconductor_test_fixture' }
       let(:filename) { 'CODE_OF_CONDUCT.txt' }
       let(:project_path) { fixture_path(fixture) }
@@ -15,11 +19,10 @@ RSpec.describe 'integration test' do
       end
       let(:other) { Coconductor::CodeOfConduct.new('other') }
 
-      subject { project_type.new(project_path, arguments) }
-
       context 'fixtures' do
         if project_type == Coconductor::Projects::GitProject
           before { git_init(project_path) }
+
           after { FileUtils.rm_rf(git_path) }
         elsif project_type == Coconductor::Projects::GitHubProject
           let(:project_path) { "https://github.com/#{user}/#{fixture}" }
@@ -42,7 +45,7 @@ RSpec.describe 'integration test' do
           end
         end
 
-        context '.github folder' do
+        describe '.github folder' do
           let(:fixture) { 'dot-github-folder' }
 
           it 'matches' do
