@@ -11,7 +11,7 @@ module Coconductor
   autoload :ProjectFiles,  'coconductor/project_files'
   autoload :Vendorer,      'coconductor/vendorer'
 
-  CONFIDENCE_THRESHOLD = 90
+  CONFIDENCE_THRESHOLD = 85
 
   class << self
     attr_writer :confidence_threshold

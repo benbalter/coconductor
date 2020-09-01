@@ -29,7 +29,7 @@ RSpec.describe Coconductor do
 
   describe '#confidence_threshold' do
     it 'returns the confidence threshold' do
-      expect(subject.confidence_threshold).to be(90)
+      expect(subject.confidence_threshold).to be(85)
     end
 
     context 'user overridden' do

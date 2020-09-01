@@ -32,7 +32,7 @@ RSpec.describe Coconductor::Matchers::Dice do
     end
 
     it 'is confident' do
-      expect(subject.confidence).to be(99.59349593495935)
+      expect(subject.confidence).to be(99.59514170040485)
     end
   end
 
