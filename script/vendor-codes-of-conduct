@@ -65,14 +65,14 @@ replacements = {
   'Gopher' => 'Go',
   ' Go ' => ' [COMMUNITY_NAME] ',
   'conduct@golang.org' => '[EMAIL_ADDRESS]',
-  'Cassandra Salisbury, ' => '',
+  'Carmen Andoh and Van Riper, ' => '',
   'the Open Source Programs Office' => '[GOVERNING_BODY]',
   'the Google Open Source Programs Office' => '[GOVERNING_BODY]',
   ' and the Google Open Source Strategy team' => '',
   'opensource@google.com' => '[GOVERNING_BODY_EMAIL_ADDRESS]'
 }
 Coconductor::Vendorer.new('go',
-                          repo: 'golang/go',
-                          source_path: 'doc/conduct.html',
+                          repo: 'golang/website',
+                          source_path: 'content/static/doc/conduct.html',
                           html: true,
                           replacements: replacements).vendor

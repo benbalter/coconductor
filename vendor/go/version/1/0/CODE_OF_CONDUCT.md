@@ -72,7 +72,7 @@ Project maintainers have the right and responsibility to remove, edit, or reject
 
 This Code of Conduct applies both within project spaces and in public spaces when an individual is representing the project or its community. Examples of representing a project or community include using an official project e-mail address, posting via an official social media account, or acting as an appointed representative at an online or offline event. Representation of a project may be further defined and clarified by project maintainers.
 
-This Code of Conduct also applies outside the project spaces when the Project Steward has a reasonable belief that an individual’s behavior may have a negative impact on the project or its community.
+This Code of Conduct also applies outside the project spaces when the Project Stewards have a reasonable belief that an individual’s behavior may have a negative impact on the project or its community.
 
 ### Conflict Resolution
 
@@ -80,7 +80,7 @@ We do not believe that all conflict is bad; healthy debate and disagreement ofte
 
 If you see someone violating the code of conduct, you are encouraged to address the behavior directly with those involved. Many issues can be resolved quickly and easily, and this gives people more control over the outcome of their dispute. If you are unable to resolve the matter for any reason, or if the behavior is threatening or harassing, report it. We are dedicated to providing an environment where participants feel welcome and safe.
 
-Reports should be directed to the [COMMUNITY_NAME] Project Steward, at _[EMAIL_ADDRESS]_. It is the Project Steward’s duty to receive and address reported violations of the code of conduct. They will then work with a committee consisting of representatives from [GOVERNING_BODY]. If for any reason you are uncomfortable reaching out the Project Steward, please email [GOVERNING_BODY] at _[GOVERNING_BODY_EMAIL_ADDRESS]_.
+Reports should be directed to the [COMMUNITY_NAME] Project Stewards, at _[EMAIL_ADDRESS]_. It is the Project Stewards’ duty to receive and address reported violations of the code of conduct. They will then work with a committee consisting of representatives from [GOVERNING_BODY]. If for any reason you are uncomfortable reaching out the Project Stewards, please email [GOVERNING_BODY] at _[GOVERNING_BODY_EMAIL_ADDRESS]_.
 
 We will investigate every complaint, but you may not receive a direct response. We will use our discretion in determining when and how to follow up on reported incidents, which may range from not taking action to permanent expulsion from the project and project-sponsored spaces. We will notify the accused of the report and provide them an opportunity to discuss it before any action is taken. The identity of the reporter will be omitted from the details of the report supplied to the accused. In potentially harmful situations, such as ongoing harassment or threats to anyone’s safety, we may take action without notice.
 
