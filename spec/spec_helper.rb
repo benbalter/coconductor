@@ -13,6 +13,7 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 end
 
+require 'fileutils'
 require_relative '../lib/coconductor'
 
 def project_root

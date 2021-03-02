@@ -115,7 +115,7 @@ module Coconductor
     end
 
     def normalize_implicit_fields(content)
-      content.gsub!(/#{UPPERCASE_WORD_REGEX} #{UPPERCASE_WORD_REGEX}/) do |m|
+      content.gsub!(/#{UPPERCASE_WORD_REGEX} #{UPPERCASE_WORD_REGEX}/o) do |m|
         m.tr(' ', '_')
       end
       content.gsub(UNMARKED_FIELD_REGEX) { |m| "[#{m}]" }
