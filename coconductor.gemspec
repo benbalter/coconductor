@@ -29,6 +29,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'thor', '>= 0.18', '< 2.0'
   spec.add_dependency 'toml', '~> 0.2'
 
+  spec.add_development_dependency 'gem-release', '~> 2.0'
   spec.add_development_dependency 'pry', '~> 0.10'
   spec.add_development_dependency 'reverse_markdown', '~> 1.1'
   spec.add_development_dependency 'rspec', '~> 3.0'
