@@ -4,6 +4,7 @@ require 'toml'
 
 module Coconductor
   class InvalidCodeOfConduct < ArgumentError; end
+
   class CodeOfConduct
     class << self
       def all
