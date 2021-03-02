@@ -7,7 +7,7 @@ RSpec.describe 'integration test' do
     Coconductor::Projects::GitHubProject
   ].each do |project_type|
     context "with a #{project_type} project" do
-      subject { project_type.new(project_path, arguments) }
+      subject { project_type.new(project_path, **arguments) }
 
       let(:user) { '_coconductor_test_fixture' }
       let(:filename) { 'CODE_OF_CONDUCT.txt' }

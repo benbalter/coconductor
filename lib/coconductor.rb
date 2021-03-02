@@ -26,12 +26,12 @@ module Coconductor
 
     def project(path, **args)
       if %r{\Ahttps://github.com}.match?(path)
-        Coconductor::Projects::GitHubProject.new(path, args)
+        Coconductor::Projects::GitHubProject.new(path, **args)
       else
-        Coconductor::Projects::GitProject.new(path, args)
+        Coconductor::Projects::GitProject.new(path, **args)
       end
     rescue Coconductor::Projects::GitProject::InvalidRepository
-      Coconductor::Projects::FSProject.new(path, args)
+      Coconductor::Projects::FSProject.new(path, **args)
     end
 
     def confidence_threshold
