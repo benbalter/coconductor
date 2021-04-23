@@ -36,7 +36,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop', '~> 1.0'
   spec.add_development_dependency 'rubocop-performance', '~> 1.5'
   spec.add_development_dependency 'rubocop-rspec', '~> 2.0'
-  spec.add_development_dependency 'twitter-text', '< 2.0'
+  spec.add_development_dependency 'twitter-text', '< 4.0'
   spec.add_development_dependency 'webmock', '~> 3.1'
   spec.add_development_dependency 'wikicloth', '~> 0.8'
 end
