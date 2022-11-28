@@ -31,7 +31,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'gem-release', '~> 2.0'
   spec.add_development_dependency 'pry', '~> 0.10'
-  spec.add_development_dependency 'reverse_markdown', '~> 1.1'
+  spec.add_development_dependency 'reverse_markdown', '~> 2.1'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rubocop', '~> 1.0'
   spec.add_development_dependency 'rubocop-performance', '~> 1.5'
